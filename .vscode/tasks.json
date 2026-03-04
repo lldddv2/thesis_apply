@@ -1,0 +1,35 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Nueva entrada (bitácora)",
+      "type": "shell",
+      "command": "node",
+      "args": [
+        "scripts/new-entry.js",
+        "${input:entryTitle}"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "focus": true
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      }
+    }
+  ],
+  "inputs": [
+    {
+      "id": "entryTitle",
+      "type": "promptString",
+      "description": "Título de la entrada de la bitácora",
+      "default": ""
+    }
+  ]
+}

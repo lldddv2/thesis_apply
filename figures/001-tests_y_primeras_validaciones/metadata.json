@@ -1,0 +1,23 @@
+{
+    "inclination_orbital_schwarzschild.png": {
+        "caption": "Inclinación orbital de una particula en una geodésica en una métrca de kerr con inclinación inicial de 30° y velocidad azimutal inicial de $1/x^1$."
+    },
+    "inclination_orbital_schwarzschild_fft.png": {
+        "caption": "Transformada de Fourier de la inclinación orbital menos el modo promedio de una particula en una geodésica en una métrca de kerr con inclinación inicial de 30° y velocidad azimutal inicial de $1/x^1$."
+    },
+    "inclination_orbital_schwarzschild_reconstruction.png": {
+        "caption": "Reconstrucción de la inclinación orbital de una particula en una geodésica en una métrca de kerr con inclinación inicial de 30° y velocidad azimutal inicial de $1/x^1$ usando los modos dominantes de la transformada de Fourier."
+    },
+    "inclination_orbital_schwarzschild_unstable.png": {
+        "caption": "Inclinación orbital de una particula en una geodésica en una métrca de kerr con inclinación inicial de 30° y velocidad azimutal inicial de $1/x^1$ con una pequeña perturbación en la velocidad azimutal."
+    },
+    "inclination_orbital_schwarzschild_fft_unstable.png": {
+        "caption": "Transformada de Fourier de la inclinación orbital menos el modo promedio de una particula en una geodésica en una métrca de kerr con inclinación inicial de 30° y velocidad azimutal inicial de $1/x^1$ con una pequeña perturbación en la velocidad azimutal."
+    },
+    "inclination_orbital_schwarzschild_reconstruction_unstable.png": {
+        "caption": "Reconstrucción de la inclinación orbital de una particula en una geodésica en una métrca de kerr con inclinación inicial de 30° y velocidad azimutal inicial de $1/x^1$ con una pequeña perturbación en la velocidad azimutal usando los modos dominantes de la transformada de Fourier."
+    },
+    "path_3d_unstable.html": {
+        "caption": "Gráfica 3D de la geodésica en una métrca de kerr con inclinación inicial de 30° y velocidad azimutal inicial de $1/x^1$ con una pequeña perturbación en la velocidad azimutal."
+    }
+}

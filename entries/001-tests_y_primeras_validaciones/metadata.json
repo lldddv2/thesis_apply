@@ -1,0 +1,80 @@
+{
+  "entry_title": "Tests y primeras validaciones",
+  "date": "2026-03-04",
+  "summary": "",
+  "adjoined_files": {
+    "colab":{ 
+      "path":"../notebooks/001-tests_y_primeras_validaciones.ipynb",
+      "description": "Notebook de la investigación."
+    }
+  },
+  "tasks": {
+    "Verificación de las geodésicas con einsteinpy": {
+      "status": "done",
+      "type": "library",
+      "description": "Se debe verificar que estamos obteniendo las godésicas correctamente. Para ello se usa una librería de verificación para comprobar que los resultados son correctos.",
+      "comments": {
+        "Luis Díaz": "Se ha verificado que las geodésicas son correctas."
+      }
+    },
+    "Verificación de las geodésicas con conservación de la magnitud del cuadrimomento (velocidad de la luz)": {
+      "status": "done",
+      "type": "library",
+      "description": "Se debe verificar que estamos obteniendo las godésicas correctamente. Para ello garantizamos la conservación de la magnitud del cuadrimomento (velocidad de la luz).",
+      "comments": {
+        "Luis Díaz": "Se agregó la posibilidad de calcular la magnitud del cuadrimomento (velocidad de la luz) para verificar que se conserva."
+      }
+    },
+    "Verificación de las geodésicas con conservación de energía": {
+      "status": "done",
+      "type": "library",
+      "description": "Se debe verificar que estamos obteniendo las godésicas correctamente. Para ello garantizamos la conservación de energía.",
+      "comments": {
+        "Luis Díaz": "Se agregó la posibilidad de calcular la energía para verificar que se conserva."
+      }
+    },
+    "Verificación de las geodésicas con conservación de momentum angular": {
+      "status": "done",
+      "type": "library",
+      "description": "Se debe verificar que estamos obteniendo las godésicas correctamente. Para ello garantizamos la conservación de momentum angular.",
+      "comments": {
+        "Luis Díaz": "Se agregaron las coordenadas cilindricas para facilitar el cálculo del momentum angular. Se agregó la posibilidad de calcular el momentum angular para verificar que se conserva."
+      }
+    },
+    "Verificación de las geodésicas con la constante de Carter": {
+      "status": "done",
+      "type": "library",
+      "description": "Se debe verificar que estamos obteniendo las godésicas correctamente. Para ello garantizamos la conservación de la constante de Carter.",
+      "comments": {
+        "Luis Díaz": "Se agregó la posibilidad de calcular la constante de Carter para verificar que se conserva. (Exclusivo de la métrica de Kerr)"
+      }
+    },
+    "Verificación de las geodésicas usando la inclinación orbital acotada": {
+      "status": "done",
+      "type": "scientific_result",
+      "description": "Se debe verificar que estamos obteniendo las godésicas correctamente. Para ello a partir del resultado teórico que nos indica que debe tener inclinación (parámetro orbital) oscila en un rango de manera periódica.",
+      "comments": {
+        "Luis Díaz": "Se agregaron en el módulo de coordenadas las coordenadas, los elementos orbitales."
+      }
+    },
+    "Suposición: dinámica de estrellas debida a AN":{
+      "status": "to-do",
+      "type": "scientific_result",
+      "description": "",
+      "comments": {
+        "Luis Díaz": "No estoy seguro de qué significa"
+      }
+    }
+  },
+  "extra":{
+    "Soporte a cualquier tipo de coordenadas para calcular las geodésicas":{
+      "description": "En la versión anterior de RelatiPy, no se soportaba calcular las geodésicas en cualquier tipo de coordenadas, de hecho ni se verificaba. Ahora se soporta permite tener una entrada de cualquier tipo de coordenadas y hace las transformaciones por sí mismo."
+    },
+    "Graficas 2D y 3D para la exploración de los resultados":{
+      "description": "Se crean módulos para graficar los resultados en 2D y 3D para la exploración de los resultados.",
+      "comments": {
+        "Luis Díaz": "Los módulos 2D funcionan con plotly y los 3D con plotly-express."
+      }
+    }
+  }
+}
