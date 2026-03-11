@@ -63,12 +63,16 @@ function createMetadata(title, weekNumber) {
     entry_title: title,
     date: getTodayDate(),
     summary: '',
+    adjoined_files: {},
     tasks: {
       'Tarea de ejemplo': {
         status: 'to-do',
-        type: 'writing'
+        type: 'writing',
+        description: '',
+        comments: {}
       }
-    }
+    },
+    extra: {}
   }
 }
 

@@ -1,0 +1,39 @@
+{
+  "entry_title": "Integradores de orbitas",
+  "date": "2026-03-11",
+  "summary": "",
+  "adjoined_files": {},
+  "tasks": {
+    "Mejorar la primera entrega": {
+      "status": "to-do",
+      "type": "scientific_result",
+      "description": "Mejorar la primera entrega, agregando las figuras y las explicaciones.",
+      "comments": {}
+    },
+    "Integraciones a largo plazo": {
+      "status": "to-do",
+      "type": "scientific_result",
+      "description": "Integraciones a largo plazo, con tiempos de integración más largos.",
+      "comments": {}
+    },
+    "Condiciones basadas en eventos": {
+      "status": "to-do",
+      "type": "scientific_result",
+      "description": "Condiciones basadas en eventos, como el choque con el horizonte de eventos.",
+      "comments": {}
+    },
+    "Condiciones iniciales: Orbitas progradas y retrogradas, condiciones iniciales como elementos ...": {
+      "status": "to-do",
+      "type": "scientific_result",
+      "description": "Condiciones iniciales: Orbitas progradas y retrogradas, condiciones iniciales como elementos orbitales.",
+      "comments": {}
+    },
+    "Observación de experimentos (movimiento del nodo ascendente)": {
+      "status": "to-do",
+      "type": "scientific_result",
+      "description": "Observación de experimentos (movimiento del nodo ascendente).",
+      "comments": {}
+    }
+  },
+  "extra": {}
+}

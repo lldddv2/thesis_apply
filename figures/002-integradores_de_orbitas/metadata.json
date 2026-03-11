@@ -1,0 +1,11 @@
+{
+    "error_instantaneous.png": {
+        "caption": "Error instantáneo de los diferentes integradores."
+    },
+    "error_instantaneous_DOP853_Radau_LSODA.png": {
+        "caption": "Error instantáneo de los diferentes integradores, pero con tiempos de integración más largos."
+    },
+    "orbit_500_periods.html": {
+        "caption": "Orbita en Kerr con condiciones iniciales en elementos osculantes, con un semieje mayor de 4 veces el radio de Schwarzschild, y 500 periodos de condición inicial según una orbita kepleriana."
+    }
+}
