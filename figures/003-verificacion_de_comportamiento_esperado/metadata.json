@@ -1,0 +1,11 @@
+{
+    "errors_Q_E_Lz.png": {
+        "caption": "Error relativo en la constante de Carter, la energía relativista y el momento angular, en función del tiempo."
+    },
+    "periodograma_inclinacion.png": {
+        "caption": "Periodograma de la inclinación orbital."
+    },
+    "orbit.html": {
+        "caption": "Muestra de la implementación del ISCO en la métrica de Kerr."
+    }
+}
