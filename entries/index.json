@@ -1,5 +1,6 @@
 [
   "001-tests_y_primeras_validaciones",
   "002-integradores_de_orbitas",
-  "003-verificacion_de_comportamiento_esperado"
+  "003-verificacion_de_comportamiento_esperado",
+  "004-nuevo_integrador"
 ]

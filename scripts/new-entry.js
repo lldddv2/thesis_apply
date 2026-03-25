@@ -8,21 +8,30 @@
  *   node scripts/new-entry.js "Título de la entrada" --week 2
  * 
  * Genera:
- *   - public/entries/{slug}/metadata.json
- *   - public/entries/{slug}/main.md
- *   - Actualiza public/entries/index.json
+ *   - entries/{slug}/metadata.json
+ *   - entries/{slug}/main.md
+ *   - figures/{slug}/metadata.json (incluye el notebook .ipynb)
+ *   - notebooks/{slug}.ipynb
+ *   - Actualiza entries/index.json
  */
 
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
+import crypto from 'crypto'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const ROOT = path.resolve(__dirname, '..')
 
 const ENTRIES_DIR = path.join(ROOT, 'entries')
+const FIGURES_DIR = path.join(ROOT, 'figures')
+const NOTEBOOKS_DIR = path.join(ROOT, 'notebooks')
 const INDEX_FILE = path.join(ENTRIES_DIR, 'index.json')
+
+function shortCellId() {
+  return crypto.randomBytes(4).toString('hex')
+}
 
 function toSlug(text) {
   return text
@@ -95,6 +104,42 @@ Describe aquí el trabajo realizado esta semana.
 `
 }
 
+function createFiguresMetadata(slug) {
+  const notebookFile = `${slug}.ipynb`
+  return {
+    [notebookFile]: {
+      caption: 'Notebook de la investigación.'
+    }
+  }
+}
+
+function createNotebookSkeleton(title) {
+  const date = getTodayDate()
+  return {
+    cells: [
+      {
+        cell_type: 'markdown',
+        id: shortCellId(),
+        metadata: {},
+        source: [`# ${title}\n`, '\n', `**Fecha:** ${date}\n`]
+      }
+    ],
+    metadata: {
+      kernelspec: {
+        display_name: 'Python 3',
+        language: 'python',
+        name: 'python3'
+      },
+      language_info: {
+        name: 'python',
+        version: '3.12.0'
+      }
+    },
+    nbformat: 4,
+    nbformat_minor: 5
+  }
+}
+
 function updateIndex(slug) {
   let index = []
   
@@ -141,16 +186,29 @@ Ejemplo:
   const slug = `${paddedNumber}-${slugBase}`
   
   const entryDir = path.join(ENTRIES_DIR, slug)
+  const figuresDir = path.join(FIGURES_DIR, slug)
+  const notebookPath = path.join(NOTEBOOKS_DIR, `${slug}.ipynb`)
   
   if (fs.existsSync(entryDir)) {
     console.error(`Error: La entrada "${slug}" ya existe.`)
     process.exit(1)
   }
   
-  // Crear directorio
-  fs.mkdirSync(entryDir, { recursive: true })
+  if (fs.existsSync(notebookPath)) {
+    console.error(`Error: Ya existe el notebook "${notebookPath}".`)
+    process.exit(1)
+  }
   
-  // Crear metadata.json
+  if (fs.existsSync(figuresDir)) {
+    console.error(`Error: Ya existe la carpeta de figuras "${figuresDir}".`)
+    process.exit(1)
+  }
+  
+  // Crear directorios
+  fs.mkdirSync(entryDir, { recursive: true })
+  fs.mkdirSync(figuresDir, { recursive: true })
+  
+  // Crear metadata.json de la entrada
   const metadata = createMetadata(title, number)
   fs.writeFileSync(
     path.join(entryDir, 'metadata.json'),
@@ -161,6 +219,17 @@ Ejemplo:
   const markdown = createMarkdown(title)
   fs.writeFileSync(path.join(entryDir, 'main.md'), markdown)
   
+  // figures/{slug}/metadata.json (mismo esquema que captions en PNG/HTML)
+  const figuresMetadata = createFiguresMetadata(slug)
+  fs.writeFileSync(
+    path.join(figuresDir, 'metadata.json'),
+    JSON.stringify(figuresMetadata, null, 4) + '\n'
+  )
+  
+  // Notebook vacío con el mismo nombre que el slug
+  const notebook = createNotebookSkeleton(title)
+  fs.writeFileSync(notebookPath, JSON.stringify(notebook, null, 2) + '\n')
+  
   // Actualizar index.json
   updateIndex(slug)
   
@@ -168,15 +237,20 @@ Ejemplo:
 ✓ Entrada creada exitosamente!
 
   Slug:     ${slug}
-  Carpeta:  public/entries/${slug}/
-  
+  Entrada:  entries/${slug}/
+  Figuras:  figures/${slug}/
+  Notebook: notebooks/${slug}.ipynb
+
 Archivos creados:
-  - metadata.json
-  - main.md
+  - entries/${slug}/metadata.json
+  - entries/${slug}/main.md
+  - figures/${slug}/metadata.json
+  - notebooks/${slug}.ipynb
 
 Próximos pasos:
-  1. Edita public/entries/${slug}/metadata.json para agregar tareas
-  2. Escribe el contenido en public/entries/${slug}/main.md
+  1. Edita entries/${slug}/metadata.json para ajustar tareas o adjuntos
+  2. Escribe el contenido en entries/${slug}/main.md
+  3. Trabaja en notebooks/${slug}.ipynb y añade figuras en figures/${slug}/
 `)
 }
 

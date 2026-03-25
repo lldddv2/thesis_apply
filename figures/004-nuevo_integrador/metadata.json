@@ -1,0 +1,11 @@
+{
+    "004-nuevo_integrador.ipynb": {
+        "caption": "Notebook de la investigación."
+    },
+    "errors_Q_E_Lz_Yoshida6_sin_projection.png": {
+        "caption": "Error relativo en la constante de Carter, la energía relativista y el momento angular, en función del tiempo (500 periodos orbitales), con el integrador Yoshida6 y sin proyección."
+    },
+    "errors_Q_E_Lz_Radau2_con_projection.png": {
+        "caption": "Error relativo en la constante de Carter, la energía relativista y el momento angular, en función del tiempo (500 periodos orbitales), con el integrador Radau y proyección."
+    }
+}
