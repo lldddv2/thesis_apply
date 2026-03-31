@@ -1,0 +1,143 @@
+% ============================================================
+% Comandos y entornos personalizados — Tesis
+% Cargar en el preamble del documento principal:
+%   \input{manuscrito/comandos.tex}
+%
+% Paquetes requeridos (agregar al preamble):
+%   \usepackage{amsthm}
+%   \usepackage{tcolorbox}
+%   \usepackage{float}
+%   \usepackage{graphicx}
+%   \usepackage{csvsimple}
+%   \usepackage{booktabs}
+%   \usepackage{xparse}
+%   \usepackage{makecell}
+%   \tcbuselibrary{theorems, skins, breakable}
+% ============================================================
+
+
+% ============================================================
+% ENTORNOS FORMALES (marco teórico)
+% Uso: \begin{definicion}[Nombre de la definición]{def:label}
+%        Contenido...
+%      \end{definicion}
+% ============================================================
+
+\tcbuselibrary{theorems, skins, breakable}
+
+% Contador compartido entre entornos (numeración por sección)
+\newcounter{formalcounter}[section]
+\renewcommand{\theformalcounter}{\thesection.\arabic{formalcounter}}
+
+% -- Definición --------------------------------------------------
+\newtcbtheorem[
+    use counter=formalcounter,
+    number freestyle={\noexpand\theformalcounter}
+]{definicion}{Definición}{
+    enhanced,
+    breakable,
+    colback=blue!4!white,
+    colframe=blue!50!black,
+    fonttitle=\bfseries,
+    separator sign={ —},
+    attach boxed title to top left={yshift=-2mm, xshift=4mm},
+    boxed title style={
+        colback=blue!50!black,
+        colframe=blue!50!black,
+    },
+    label type=definicion
+}{def}
+
+% -- Teorema -----------------------------------------------------
+\newtcbtheorem[
+    use counter=formalcounter,
+    number freestyle={\noexpand\theformalcounter}
+]{teorema}{Teorema}{
+    enhanced,
+    breakable,
+    colback=green!4!white,
+    colframe=green!40!black,
+    fonttitle=\bfseries,
+    separator sign={ —},
+    attach boxed title to top left={yshift=-2mm, xshift=4mm},
+    boxed title style={
+        colback=green!40!black,
+        colframe=green!40!black,
+    },
+    label type=teorema
+}{thm}
+
+% -- Observación -------------------------------------------------
+\newtcbtheorem[
+    use counter=formalcounter,
+    number freestyle={\noexpand\theformalcounter}
+]{observacion}{Observación}{
+    enhanced,
+    breakable,
+    colback=gray!6!white,
+    colframe=gray!50!black,
+    fonttitle=\bfseries,
+    separator sign={ —},
+    attach boxed title to top left={yshift=-2mm, xshift=4mm},
+    boxed title style={
+        colback=gray!50!black,
+        colframe=gray!50!black,
+    },
+    label type=observacion
+}{obs}
+
+
+% ============================================================
+% FIGURAS
+% Uso: \myFigure[fig:label]{filename}[caption][width]
+%   fig:label  (opcional) — label para \ref{}
+%   filename   (obligatorio) — nombre del archivo en figures/
+%   caption    (opcional) — pie de figura
+%   width      (opcional, default 0.5) — fracción de \textwidth
+% ============================================================
+\NewDocumentCommand{\myFigure}{O{} m O{} O{0.5}}{
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=#4\textwidth]{#2}
+        \caption{#3}
+        \label{#1}
+    \end{figure}
+}
+\numberwithin{figure}{section}
+
+
+% ============================================================
+% TABLAS DESDE CSV
+% Uso: \myTable[tab:label]{csvfile}[caption]
+%   tab:label  (opcional) — label para \ref{}
+%   csvfile    (obligatorio) — path al archivo CSV
+%   caption    (opcional) — pie de tabla
+% ============================================================
+\makeatletter
+\csvset{
+  autotabularcenter/.style={
+    file=#1,
+    after head=\csv@pretable\begin{tabular}{*{\csv@columncount}{c}}\csv@tablehead,
+    table head=\toprule\csvlinetotablerow\\\midrule,
+    late after line=\\,
+    table foot=\\\bottomrule,
+    late after last line=\csv@tablefoot\end{tabular}\csv@posttable,
+    command=\csvlinetotablerow},
+}
+\makeatother
+
+\NewDocumentCommand{\myTable}{O{} m O{}}{
+    \begin{table}[H]
+        \centering
+        \csvloop{autotabularcenter={#2}}
+        \caption{#3}
+        \label{#1}
+    \end{table}
+}
+\numberwithin{table}{section}
+
+
+% ============================================================
+% NUMERACIÓN DE ECUACIONES POR SECCIÓN
+% ============================================================
+\numberwithin{equation}{section}

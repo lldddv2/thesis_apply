@@ -1,0 +1,183 @@
+{
+    // Snippets para comandos LaTeX personalizados del proyecto de tesis
+    // Ver definiciones en: manuscrito/comandos.tex
+    // Documentación: .claude/skills/latex/references/comandos-propios.md
+
+    "equation con label": {
+        "scope": "latex",
+        "prefix": "eq",
+        "body": [
+            "\\begin{equation}",
+            "    ${1:expresión} \\label{eq:${2:nombre}}",
+            "\\end{equation}"
+        ],
+        "description": "Entorno equation con label obligatorio"
+    },
+
+    "align con labels": {
+        "scope": "latex",
+        "prefix": "aln",
+        "body": [
+            "\\begin{align}",
+            "    ${1:A} &= ${2:B} \\label{eq:${3:nombre_1}} \\\\",
+            "    ${4:C} &= ${5:D} \\label{eq:${6:nombre_2}}",
+            "\\end{align}"
+        ],
+        "description": "Entorno align con labels en cada línea"
+    },
+
+    "itemize indentado": {
+        "scope": "latex",
+        "prefix": "itm",
+        "body": [
+            "\\begin{itemize}",
+            "    \\item ${1:Primer elemento.}",
+            "    \\item ${2:Segundo elemento.}",
+            "\\end{itemize}"
+        ],
+        "description": "Lista itemize con indentación correcta"
+    },
+
+    "myFigure - figura completa": {
+        "scope": "latex",
+        "prefix": "myfig",
+        "body": [
+            "\\myFigure[fig:${1:label}]{${2:filename.png}}[${3:Pie de figura.}][${4:0.7}]"
+        ],
+        "description": "Insertar figura con \\myFigure[label]{file}[caption][width]"
+    },
+
+    "myFigure - figura mínima": {
+        "scope": "latex",
+        "prefix": "myfigmin",
+        "body": [
+            "\\myFigure{${1:filename.png}}"
+        ],
+        "description": "Insertar figura sin label ni caption"
+    },
+
+    "myTable - tabla desde CSV": {
+        "scope": "latex",
+        "prefix": "mytab",
+        "body": [
+            "\\myTable[tab:${1:label}]{${2:data/archivo.csv}}[${3:Pie de tabla.}]"
+        ],
+        "description": "Insertar tabla CSV con \\myTable[label]{csvfile}[caption]"
+    },
+
+    "myTable - tabla mínima": {
+        "scope": "latex",
+        "prefix": "mytabmin",
+        "body": [
+            "\\myTable{${1:data/archivo.csv}}"
+        ],
+        "description": "Insertar tabla CSV sin label ni caption"
+    },
+
+    "label - figura": {
+        "scope": "latex",
+        "prefix": "labfig",
+        "body": ["\\label{fig:${1:nombre}}"],
+        "description": "Label con prefijo fig:"
+    },
+
+    "label - tabla": {
+        "scope": "latex",
+        "prefix": "labtab",
+        "body": ["\\label{tab:${1:nombre}}"],
+        "description": "Label con prefijo tab:"
+    },
+
+    "label - ecuación": {
+        "scope": "latex",
+        "prefix": "labeq",
+        "body": ["\\label{eq:${1:nombre}}"],
+        "description": "Label con prefijo eq:"
+    },
+
+    "label - sección": {
+        "scope": "latex",
+        "prefix": "labsec",
+        "body": ["\\label{sec:${1:nombre}}"],
+        "description": "Label con prefijo sec:"
+    },
+
+    "ref - ecuación": {
+        "scope": "latex",
+        "prefix": "refeq",
+        "body": ["\\eqref{eq:${1:nombre}}"],
+        "description": "Referencia a ecuación con \\eqref"
+    },
+
+    "ref - figura": {
+        "scope": "latex",
+        "prefix": "reffig",
+        "body": ["\\ref{fig:${1:nombre}}"],
+        "description": "Referencia a figura"
+    },
+
+    "ref - tabla": {
+        "scope": "latex",
+        "prefix": "reftab",
+        "body": ["\\ref{tab:${1:nombre}}"],
+        "description": "Referencia a tabla"
+    },
+
+    "definicion - entorno formal completo": {
+        "scope": "latex",
+        "prefix": "defin",
+        "body": [
+            "\\begin{definicion}[${1:Nombre preciso}]{def:${2:label}}",
+            "    Sea ${3:$(\\\\mathcal{M}, g_{\\\\mu\\\\nu})$ una variedad pseudo-Riemanniana}.",
+            "    Decimos que ${4:objeto} es \\\\textit{${1}} si",
+            "    \\\\begin{equation}",
+            "        ${5:condición formal.} \\\\label{eq:${2}_cond}",
+            "    \\\\end{equation}",
+            "\\end{definicion}"
+        ],
+        "description": "Definición formal completa: nombre + contexto + condición + label (6 requisitos)"
+    },
+
+    "teorema - entorno formal": {
+        "scope": "latex",
+        "prefix": "teor",
+        "body": [
+            "\\begin{teorema}[${1:Nombre del teorema}]{thm:${2:label}}",
+            "    ${3:Enunciado del teorema.}",
+            "\\end{teorema}"
+        ],
+        "description": "Entorno formal de teorema"
+    },
+
+    "observacion - entorno formal": {
+        "scope": "latex",
+        "prefix": "obs",
+        "body": [
+            "\\begin{observacion}[${1:Título opcional}]{obs:${2:label}}",
+            "    ${3:Contenido de la observación.}",
+            "\\end{observacion}"
+        ],
+        "description": "Entorno formal de observación/nota"
+    },
+
+    "label - definicion": {
+        "scope": "latex",
+        "prefix": "labdef",
+        "body": ["def:${1:nombre}"],
+        "description": "Label con prefijo def: (para entorno definicion)"
+    },
+
+    "label - teorema": {
+        "scope": "latex",
+        "prefix": "labthm",
+        "body": ["thm:${1:nombre}"],
+        "description": "Label con prefijo thm: (para entorno teorema)"
+    },
+
+    "label - observacion": {
+        "scope": "latex",
+        "prefix": "labobs",
+        "body": ["obs:${1:nombre}"],
+        "description": "Label con prefijo obs: (para entorno observacion)"
+    }
+}
