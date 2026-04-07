@@ -1,0 +1,92 @@
+\documentclass[12pt, a4paper, oneside]{book}
+
+% ── Idioma y codificación ─────────────────────────────────────────────────────
+\usepackage[spanish, es-nodecimaldot]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% ── Matemáticas ───────────────────────────────────────────────────────────────
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{physics}
+\usepackage{mathtools}
+\usepackage{tensor}
+
+% ── Requeridos por compilation/comandos.tex ───────────────────────────────────
+\usepackage{tcolorbox}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{csvsimple}
+\usepackage{booktabs}
+\usepackage{xparse}
+\usepackage{makecell}
+
+% ── Layout y tipografía ───────────────────────────────────────────────────────
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{microtype}
+\usepackage{setspace}
+\usepackage{parskip}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{emptypage}      % páginas vacías sin encabezado
+
+% ── Encabezados y pies de página ──────────────────────────────────────────────
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\nouppercase{\leftmark}}
+\fancyhead[R]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ── Figuras y colores ─────────────────────────────────────────────────────────
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{xcolor}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% ── Bibliografía ──────────────────────────────────────────────────────────────
+\usepackage[backend=biber, style=numeric, sorting=none]{biblatex}
+\addbibresource{bibliografia.bib}
+
+% ── Hiperlinks ────────────────────────────────────────────────────────────────
+\usepackage[hidelinks]{hyperref}
+\usepackage{cleveref}
+
+% ── Rutas de figuras (relativas a manuscrito/docs/) ───────────────────────────
+\graphicspath{{../../figures/}}
+
+% ── Comandos y entornos personalizados ────────────────────────────────────────
+\input{../compilation/comandos.tex}
+
+% ─────────────────────────────────────────────────────────────────────────────
+
+\begin{document}
+
+% ── Portada ───────────────────────────────────────────────────────────────────
+\frontmatter
+\begin{titlepage}
+    \centering
+    \vspace*{3cm}
+    {\huge\bfseries Tesis\par}
+    \vspace{1.5cm}
+    {\large\par}
+    \vfill
+    {\large \today\par}
+\end{titlepage}
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+% ── Cuerpo ────────────────────────────────────────────────────────────────────
+\mainmatter
+
+\input{general/__main__.tex}
+\input{marco_teorico/__main__.tex}
+
+% ── Bibliografía ──────────────────────────────────────────────────────────────
+\backmatter
+\printbibliography[heading=bibintoc]
+
+\end{document}

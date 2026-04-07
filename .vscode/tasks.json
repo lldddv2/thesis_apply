@@ -2,6 +2,28 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "compile",
+      "type": "shell",
+      "command": "bash",
+      "args": [
+        "manuscrito/compilation/compile.sh"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "focus": true,
+        "clear": true
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
       "label": "Nueva entrada (bitácora)",
       "type": "shell",
       "command": "node",
