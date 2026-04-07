@@ -1,0 +1,171 @@
+\section{Métrica de Kerr}
+
+La primera vez que se menciona la métrica de Kerr es en el artículo de Kerr \cite{kerr1963gravitational}, en el año de 1963. Esta métrica corresponde a la solución de la ecuación de campo de Einstein para un agujero negro en rotación.
+
+Originalmente, la métrica se expresó para una \textit{null geodesic} \ref{def:null_geodesic}, mediante el sistema de coordenadas Eddington-Finkelstein \cite{finkelstein1958past}, de la siguiente manera:
+
+\begin{align}
+ds^2 = &(r^2 + a^2 \cos^2\theta)\left(d\theta^2 + \sin^2\theta \, d\phi^2\right) \\
+& + 2(du + a \sin^2\theta \, d\phi)\left(dr + a \sin^2\theta \, d\phi\right) \\
+&- \left(1 - \frac{2mr}{r^2 + a^2 \cos^2\theta}\right)
+\left(du + a \sin^2\theta \, d\phi\right)^2 \label{eq:metrica_de_kerr} \\
+\end{align}
+
+Cabe aclarar que las coordenadas no corresponden a las coordenadas esféricas.
+
+Posteriormente, Boyer y Lindquist \cite{boyer1967maximal} encontraron establecieron un nuevo sistema de coordenadas que permite obtener geodesicas \textit{timelike} \ref{def:timelike_geodesic}, de la siguiente manera:
+
+\begin{align}
+    ds^2 = & \ dr^2 - 2a \sin^2\theta \, dr \, d\varphi'  \\
+    & + (r^2 + a^2)\sin^2\theta \, d\varphi'^2  \\
+    & + \Sigma \, d\theta^2 - dt'^2  \\
+    & + \frac{2mr}{\Sigma} \left( dr - a \sin^2\theta \, d\varphi' - dt' \right)^2 \\
+\end{align}
+
+Estas coordenadas no corresponden a las coordenadas esféricas. Su transformación de coordenadas es la siguiente:
+
+\begin{align}
+    \bar{r} &= r', \qquad \bar{\theta} = \theta', \\
+    d\bar{\varphi} &= d\varphi' - \frac{a}{\Delta}\, dr', \\
+    d\bar{t} &= dt' + \frac{2mr'}{\Delta}\, dr'.
+\end{align}
+
+De donde:
+
+\begin{align}
+    \bar{r} = r, &\quad \bar{\theta} = \theta \\
+    d\bar{t} = dt &- 2mr \ dr/\Delta(r), \\
+    d\bar{\varphi}' = d\varphi' &+ 2a mr  \ dr/\Delta(r); \\
+    \Delta(r) = r^2 &- 2mr + a^2 \\
+\end{align}
+
+Como observará, el tipo de coordenadas que se usa y su transformación es importante, no es un detalle menor. Sin embargo, en la práctica manejar todas estas distinciones consume mucho tiempo, y vuelve complejo el sistema. Por ello, asumiremos que en la respectiva métrica que estamos trabajando, se entiende que se están usando las coordenadas que simplifican la expresión de la métrica. En el caso de la métrica de Kerr, a no ser que se especifique lo contrario, se asumirá que se están usando las coordenadas de Boyer-Lindquist. Por lo tanto, de ahora en adelante, no primaremos las coordenadas, en su lugar, escribiremos de forma $x^\nu$, de modo que la conversión a cada uno de los sistemas que conocemos, será una de la forma $x^\nu = f(x'^\mu)$.
+
+\subsubsection{Métrica de Kerr en coordenadas de Boyer-Lindquist}
+La forma en la que, por simplicidad, decidimos usar la métrica de Kerr en coordenadas de Boyer-Lindquist es la siguiente:
+
+\begin{align}
+    ds^2 = A (dx^1)^2 + B (dx^2)^2 + C (dx^3)^2 + D (dx^0)^2 + E (dx^1)(dx^0)
+\end{align}
+
+Con:
+
+\begin{align}
+    A &= 1 - R_s  x^1 / \Sigma\\
+    B &= -\Sigma / \Delta \\
+    C &= -\Sigma \\
+    D &= -(x^1_2 + a_2 + R_s  x^1  \frac{a^2}{ \Sigma}  \sin^2(x^2))  \sin^2(x^2) \\
+    E &= 2  R_s  x^1  \frac{a}{ \Sigma}  \sin^2(x^2) \\
+\end{align}
+
+donde:
+\begin{align}
+    \Sigma &= r^2 + a^2 \cos^2(x^2) \\
+    \Delta &= r^2 - 2mr + a^2 \\
+    R_s &= 2GM/c^2 \\
+    a &= \frac{J}{M} \\
+\end{align}
+
+Está forma de la métrica está basada en la el articulo de Teukolsky \cite{teukolsky2015kerr}, pero introducioendo el radio de Schwarzschild.
+
+
+\subsubsection{Solución analítica de las timelike geodesicas en la métrica de Kerr}
+En 2009, Fujita y Hikida \cite{fujita2009analytical} encontraron una solución analítica para las geodésicas en la métrica de Kerr, basado en el tiempo de Mino \cite{mino2003perturbative}, una parametrización basada en las coordenadas de Boyer-Lindquist, que permite obtener una solución en términos de integrales elípticas de Legendre de primera, segunda y tercera especie, e integrales elípticas de Jacobi.
+
+Las geodésicas tipo tiempo en la métrica de Kerr admiten tres constantes de movimiento por unidad de masa: la energía específica $E$, la componente $z$ del momento angular específico $L_z$, y la constante de Carter $Q$ \cite{carter1968global}. Estas constantes surgen de las simetrías de la métrica y permiten separar completamente las ecuaciones de movimiento.
+
+Las ecuaciones de movimiento en tiempo propio $\tau$, en coordenadas de Boyer-Lindquist, toman la forma:
+
+\begin{align}
+    \Sigma^2 \left(\frac{dr}{d\tau}\right)^2 &= R(r), \label{eq:geodesica_r_tau} \\
+    \Sigma^2 \left(\frac{d\cos\theta}{d\tau}\right)^2 &= \Theta(\cos\theta), \label{eq:geodesica_theta_tau} \\
+    \Sigma \frac{dt}{d\tau} &= T_r(r) + T_\theta(\cos\theta), \label{eq:geodesica_t_tau} \\
+    \Sigma \frac{d\varphi}{d\tau} &= \Phi_r(r) + \Phi_\theta(\cos\theta), \label{eq:geodesica_phi_tau}
+\end{align}
+
+donde el acoplamiento a través de $\Sigma = r^2 + a^2\cos^2\theta$ impide separar directamente las ecuaciones radial y polar.
+
+El tiempo de Mino $\lambda$ se define mediante la reparametrización \cite{mino2003perturbative}:
+
+\begin{align}
+    d\tau = \Sigma \, d\lambda, \qquad \Sigma = r^2 + a^2\cos^2\theta. \label{eq:tiempo_de_mino}
+\end{align}
+
+Con esta parametrización, las ecuaciones de movimiento toman la forma \cite{fujita2009analytical}:
+
+\begin{align}
+    \left(\frac{dr}{d\lambda}\right)^2 &= R(r), \label{eq:geodesica_r_mino} \\
+    \left(\frac{d\cos\theta}{d\lambda}\right)^2 &= \Theta(\cos\theta), \label{eq:geodesica_theta_mino} \\
+    \frac{dt}{d\lambda} &= T_r(r) + T_\theta(\cos\theta), \label{eq:geodesica_t_mino} \\
+    \frac{d\varphi}{d\lambda} &= \Phi_r(r) + \Phi_\theta(\cos\theta). \label{eq:geodesica_phi_mino}
+\end{align}
+
+La propiedad central del tiempo de Mino es que las ecuaciones \eqref{eq:geodesica_r_mino} y \eqref{eq:geodesica_theta_mino} quedan completamente desacopladas: la primera depende únicamente de $r$ y la segunda únicamente de $\theta$. Definiendo $P(r) = E(r^2 + a^2) - aL_z$, los potenciales y funciones auxiliares son:
+
+\begin{align}
+    R(r) &= \left[P(r)\right]^2 - \Delta\left[r^2 + (aE - L_z)^2 + Q\right], \label{eq:potencial_R} \\
+    \Theta(\cos\theta) &= Q - \left(Q + a^2(1-E^2) + L_z^2\right)\cos^2\theta + a^2(1-E^2)\cos^4\theta, \label{eq:potencial_Theta} \\
+    T_r(r) &= \frac{r^2 + a^2}{\Delta}\,P(r), \qquad T_\theta(\cos\theta) = -a^2 E\sin^2\theta, \\
+    \Phi_r(r) &= \frac{a}{\Delta}\,P(r), \qquad \Phi_\theta(\cos\theta) = \frac{L_z}{\sin^2\theta}.
+\end{align}
+
+Para órbitas acotadas, el potencial radial $R(r)$ posee cuatro raíces reales $r_1 \geq r_2 \geq r_3 \geq r_4$, donde $r_1$ es el apoápside y $r_2$ el periápside. El potencial polar $\Theta(\cos\theta)$ se factoriza como:
+
+\begin{align}
+    \Theta(\cos\theta) = L_z^2\,\varepsilon_0\left(z_- - \cos^2\theta\right)\left(z_+ - \cos^2\theta\right), \label{eq:factorizacion_Theta}
+\end{align}
+
+donde $\varepsilon_0 = a^2(1-E^2)/L_z^2$, y $z_-$, $z_+$ son las raíces de $\Theta$ en la variable $\cos^2\theta$. La reducción a integrales elípticas se realiza mediante las transformaciones de variable y los módulos:
+
+\begin{align}
+    y_r &= \sqrt{\frac{r_1 - r_3}{r_1 - r_2}\cdot\frac{r - r_2}{r - r_3}}, \qquad
+    k_r = \sqrt{\frac{r_1 - r_2}{r_1 - r_3}\cdot\frac{r_3 - r_4}{r_2 - r_4}}, \label{eq:modulo_kr} \\
+    y_\theta &= \frac{\cos\theta}{\sqrt{z_-}}, \qquad
+    k_\theta = \sqrt{\frac{z_-}{z_+}}. \label{eq:modulo_ktheta}
+\end{align}
+
+Con estas definiciones, las integrales de camino desde los puntos de retorno se reducen a integrales elípticas incompletas de primera especie $F(\varphi, k)$:
+
+\begin{align}
+    \int_{r_2}^{r} \frac{dr'}{\sqrt{R(r')}} &= \frac{2}{\sqrt{(1-E^2)(r_1-r_3)(r_2-r_4)}}\,F\!\left(\arcsin y_r,\, k_r\right), \label{eq:integral_r} \\
+    \int_{0}^{\cos\theta} \frac{d\cos\theta'}{\sqrt{\Theta(\cos\theta')}} &= \frac{1}{L_z\sqrt{\varepsilon_0 z_+}}\,F\!\left(\arcsin y_\theta,\, k_\theta\right). \label{eq:integral_theta}
+\end{align}
+
+Los semiperíodos en tiempo de Mino se obtienen evaluando estas integrales en los puntos de retorno:
+
+\begin{align}
+    \Lambda_r &= \frac{4\,K(k_r)}{\sqrt{(1-E^2)(r_1-r_3)(r_2-r_4)}}, \qquad
+    \Lambda_\theta = \frac{4\,K(k_\theta)}{L_z\sqrt{\varepsilon_0 z_+}}, \label{eq:periodos_mino}
+\end{align}
+
+donde $K(k) = F(\pi/2, k)$ es la integral elíptica completa de primera especie.
+
+La solución analítica para la coordenada radial, en términos de la función seno elíptico de Jacobi $\mathrm{sn}(u,k)$, es \cite{fujita2009analytical}:
+
+\begin{align}
+    r(\lambda) = \frac{r_3(r_1 - r_2)\,\mathrm{sn}^2(u_r,\,k_r) - r_2(r_1 - r_3)}{(r_1 - r_2)\,\mathrm{sn}^2(u_r,\,k_r) - (r_1 - r_3)}, \label{eq:solucion_r}
+\end{align}
+
+y para la coordenada polar:
+
+\begin{align}
+    \cos\theta(\lambda) = \sqrt{z_-}\,\mathrm{sn}(u_\theta,\,k_\theta), \label{eq:solucion_theta}
+\end{align}
+
+donde $u_r$ y $u_\theta$ son funciones lineales a trozos de $\lambda$ que rastrean la fase dentro de cada semiperiodo.
+
+Las coordenadas $t(\lambda)$ y $\varphi(\lambda)$ se obtienen integrando \eqref{eq:geodesica_t_mino} y \eqref{eq:geodesica_phi_mino}. La solución se descompone en una parte secular y una parte oscilatoria \cite{fujita2009analytical}:
+
+\begin{align}
+    t(\lambda) &= \Gamma\lambda + t^{(r)}(\lambda) + t^{(\theta)}(\lambda), \label{eq:solucion_t} \\
+    \varphi(\lambda) &= \Upsilon_\varphi\lambda + \varphi^{(r)}(\lambda) + \varphi^{(\theta)}(\lambda), \label{eq:solucion_phi}
+\end{align}
+
+donde $\Gamma$ y $\Upsilon_\varphi$ son las frecuencias medias en tiempo de Mino, expresadas en términos de integrales elípticas completas de primera, segunda y tercera especie. Las partes oscilatorias $t^{(r)}$, $t^{(\theta)}$, $\varphi^{(r)}$, $\varphi^{(\theta)}$ resultan en combinaciones de integrales elípticas incompletas de segunda y tercera especie, evaluadas a lo largo de la órbita. Las frecuencias físicas observables se relacionan con las frecuencias en tiempo de Mino mediante:
+
+\begin{align}
+    \Omega_r = \frac{\Upsilon_r}{\Gamma}, \qquad \Omega_\theta = \frac{\Upsilon_\theta}{\Gamma}, \qquad \Omega_\varphi = \frac{\Upsilon_\varphi}{\Gamma}, \label{eq:frecuencias_fisicas}
+\end{align}
+
+donde $\Upsilon_r = 2\pi/\Lambda_r$ y $\Upsilon_\theta = 2\pi/\Lambda_\theta$ son las frecuencias angulares en tiempo de Mino.
+

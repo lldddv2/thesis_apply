@@ -1,0 +1,31 @@
+\subsection{Definiciones y terminología.}
+
+Para el desarrollo, debemos aclarar algunas terminologías que usaremos constantemente, y son de utilidad para el lector. Dividiremos esta sección en subsecciones, para agrupar las definiciones por tema. Es importanta aclarar que las deficiones están limitadas al contexto, por lo que no todas las definiciones son aplicables a todos los casos.
+
+\subsubsection{Geodesicas}
+
+\begin{definicion}[Geodésica]{def:geodesica}
+    Una geodésica es una curva con la menor longitud entre dos puntos en un espacio-tiempo. \cite{ridpath2012dictionary}
+\end{definicion}
+
+\begin{definicion}[Null geodesic]{def:null_geodesic}
+    Una \textit{null geodesic} o geodesica nula es una curva $x^\mu(\tau)$ en una métrica $g_{\mu\nu}$ que satisface la siguiente ecuación:
+    \begin{equation}
+    g_{\mu\nu} \frac{dx^\mu}{d\tau} \frac{dx^\nu}{d\tau} = 0 \label{eq:null_geodesic}
+    \end{equation} \cite[p. 309]{soffel2019applied}
+\end{definicion}
+
+\begin{observacion}[Rayos de luz como geodésicas nulas]{obs:rayos_de_luz_como_geodesicas_nulas}
+    En relatividad general, los rayos de luz son geodésicas nulas. \cite[p. 309]{soffel2019applied}
+\end{observacion}
+
+\begin{definicion}[Timelike geodesic]{def:timelike_geodesic}
+    Una \textit{timelike geodesic} o geodesica tipo tiempo es una curva $x^\mu(\tau)$ en una métrica $g_{\mu\nu}$ que satisface la siguiente ecuación:
+    \begin{equation}
+    g_{\mu\nu} \frac{dx^\mu}{d\tau} \frac{dx^\nu}{d\tau} = -c^2 \label{eq:timelike_geodesic}
+    \end{equation} \cite[p. 169]{soffel2019applied}
+\end{definicion}
+
+\begin{observacion}[Partículas masivas como geodésicas tipo tiempo]{obs:particulas_masivas_como_geodesicas_tipo_tiempo}
+    En relatividad general, las partículas masivas son geodésicas tipo tiempo. \cite[p. 169]{soffel2019applied}
+\end{observacion}
