@@ -4,7 +4,7 @@
 
     \subsubsection{Tensores contravariantes y covariantes}
 
-        \begin{definicion}[Notación tensorial]{def:notacion_tensorial}
+        \begin{definicion}{Notación tensorial}{def:notacion_tensorial}
             En el formalismo tensorial de relatividad general, se adopta la siguiente \textit{notación tensorial}:
             \begin{itemize}
                 \item $A^\mu$ denota un \textit{cuadrivector contravariante}.
@@ -18,13 +18,13 @@
 
         El orden de cada índice, ya sea contravariante o covariante es importante, por ello la separación de espacio entre superíndices y subíndices.
 
-        \begin{observacion}[Índices griegos y latinos]{obs:indices_rango}
+        \begin{observacion}{Índices griegos y latinos}{obs:indices_rango}
             Establecemos como convención que los índices griegos recorran los valores 0, 1, 2 y 3, y los índices latinos recorran los valores 1, 2 y 3. En este contexto, el índice 0 corresponde a la coordenada relacionada con el tiempo.
         \end{observacion}
 
     \subsubsection{Contracción de índices}
 
-        \begin{definicion}[Contracción de índices]{def:contraccion_indices}
+        \begin{definicion}{Contracción de índices}{def:contraccion_indices}
             Sean ${A^{\mu_1\mu_2...\mu_n}}_{\nu_1\nu_2...\nu_m}$ y ${B^{\nu_1\nu_2...\nu_m}}_{\rho_1\rho_2...\rho_n}$ dos tensores. La \textit{contracción de índices} entre ambos se define como:
             \begin{equation}
                 {A^{\mu_1\mu_2...\mu_n}}_{\nu_1\nu_2...\nu_m} {B^{\nu_1\nu_2...\nu_m}}_{\rho_1\rho_2...\rho_n} = \sum_{\nu_1 = 0}^{3} \sum_{\nu_2 = 0}^{3} ... \sum_{\nu_m = 0}^{3} {A^{\mu_1\mu_2...\mu_n}}_{\nu_1\nu_2...\nu_m} {B^{\nu_1\nu_2...\nu_m}}_{\rho_1\rho_2...\rho_n} \label{eq:contraccion_indices}
@@ -34,7 +34,7 @@
 
         Para evitar ambigüedades, se establecen las siguientes reglas:
 
-        \begin{observacion}[Reglas de la convención de Einstein]{obs:reglas_einstein}
+        \begin{observacion}{Reglas de la convención de Einstein}{obs:reglas_einstein}
             \begin{itemize}
                 \item Cada término de una expresión dada puede contener a lo sumo dos índices repetidos. Por ejemplo, el término $A^\mu B_\mu C^\mu$ es inválido, pero el término $A^\mu B_\mu C^\nu$ es válido.
                 \item Los índices sólo se pueden repetir si son de distinto tipo. Por ejemplo, $A^\mu B_\mu$ es válido, pero $A^\mu B^\mu$ es inválido.
@@ -48,7 +48,7 @@
 
             Se establecen las siguientes notaciones para derivadas parciales.
 
-            \begin{definicion}[Derivadas parciales covariante y contravariante]{def:derivadas_parciales}
+            \begin{definicion}{Derivadas parciales covariante y contravariante}{def:derivadas_parciales}
                 Sea $x^\mu$ un sistema de coordenadas en el espacio-tiempo $\mathcal{M}$. La \textit{derivada parcial covariante} $\partial_\mu$ y la \textit{derivada parcial contravariante} $\partial^\mu$ se definen como:
                 \begin{align}
                     \partial_\mu \equiv \frac{\partial}{\partial x^\mu} \label{eq:derivada_parcial_covariante} \\
@@ -58,7 +58,7 @@
 
             Dado que se deriva con frecuencia, una notación más compacta es:
 
-            \begin{definicion}[Notación de coma]{def:notacion_coma}
+            \begin{definicion}{Notación de coma}{def:notacion_coma}
                 Sea $A^\mu$ un cuadrivector contravariante definido en $\mathcal{M}$. La \textit{notación de coma} para derivadas parciales se define como:
                 \begin{align}
                     A^{\mu, \nu} \equiv \partial^\nu A^\mu \label{eq:notacion_coma_contravariante} \\

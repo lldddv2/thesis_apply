@@ -22,13 +22,17 @@
 
 % ── Layout y tipografía ───────────────────────────────────────────────────────
 \usepackage[margin=2.5cm]{geometry}
-\usepackage{microtype}
+\usepackage[protrusion=true, expansion=false]{microtype}
 \usepackage{setspace}
 \usepackage{parskip}
 \usepackage{enumitem}
 \usepackage{array}
 \usepackage{multirow}
 \usepackage{emptypage}      % páginas vacías sin encabezado
+% Fuente Roboto
+% \usepackage[sfdefault]{lmodern}
+% \renewcommand{\familydefault}{\sfdefault}
+
 
 % ── Encabezados y pies de página ──────────────────────────────────────────────
 \usepackage{fancyhdr}
@@ -65,15 +69,11 @@
 
 % ── Portada ───────────────────────────────────────────────────────────────────
 \frontmatter
-\begin{titlepage}
-    \centering
-    \vspace*{3cm}
-    {\huge\bfseries Tesis\par}
-    \vspace{1.5cm}
-    {\large\par}
-    \vfill
-    {\large \today\par}
-\end{titlepage}
+\newgeometry{margin=0pt}
+\thispagestyle{empty}
+\noindent\includegraphics[width=\paperwidth,height=\paperheight]{../portada_completa.jpg}
+\clearpage
+\restoregeometry
 
 \tableofcontents
 \listoffigures

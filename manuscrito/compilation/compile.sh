@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-set -euo pipefail
 
 # Asegurar que docker-credential-desktop esté en PATH (necesario al correr desde VS Code)
 export PATH="/Applications/Docker.app/Contents/Resources/bin:/usr/local/bin:/opt/homebrew/bin:$PATH"
@@ -10,6 +9,7 @@ MANUSCRITO_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 WORKSPACE="$(cd "$MANUSCRITO_DIR/.." && pwd)"
 BUILD_DIR="$SCRIPT_DIR/build"
 IMAGE_NAME="thesis-latex"
+TEX_FLAGS="-pdf -interaction=nonstopmode -file-line-error -output-directory=/workspace/manuscrito/compilation/build"
 
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo "  Compilador LaTeX — Tesis"
@@ -32,36 +32,64 @@ if ! docker image inspect "$IMAGE_NAME" &>/dev/null 2>&1; then
     echo "🔨 Construyendo imagen Docker de LaTeX..."
     echo "   (primera vez — puede tomar 5-10 minutos)"
     echo ""
-    docker build -t "$IMAGE_NAME" "$SCRIPT_DIR"
+    docker build -t "$IMAGE_NAME" "$SCRIPT_DIR" || { echo "❌ Error construyendo imagen Docker."; exit 1; }
     echo ""
     echo "✓ Imagen lista."
 fi
 
-# 3. Compilar
+# Helper: corre un comando dentro del contenedor
+run_latex() {
+    docker run --rm \
+        --memory=6g \
+        -v "$WORKSPACE:/workspace" \
+        -w "/workspace/manuscrito/docs" \
+        "$IMAGE_NAME" \
+        "$@"
+}
+
+# 3. Compilación en 3 pasos
 echo ""
-echo "📄 Compilando..."
+echo "  Paso 1/3 — pdflatex (primera pasada)..."
+run_latex pdflatex -interaction=nonstopmode -file-line-error \
+    -output-directory=/workspace/manuscrito/compilation/build \
+    main.tex
+echo "  ✓ Paso 1 listo"
+
+echo ""
+echo "  Paso 2/3 — biber (bibliografía)..."
+run_latex biber --input-directory=/workspace/manuscrito/docs \
+    /workspace/manuscrito/compilation/build/main || true
+echo "  ✓ Paso 2 listo"
+
+echo ""
+echo "  Paso 3/3 — pdflatex (pasadas finales para referencias)..."
+run_latex pdflatex -interaction=nonstopmode -file-line-error \
+    -output-directory=/workspace/manuscrito/compilation/build \
+    main.tex
+run_latex pdflatex -interaction=nonstopmode -file-line-error \
+    -output-directory=/workspace/manuscrito/compilation/build \
+    main.tex
+echo "  ✓ Paso 3 listo"
+
 echo ""
 
-docker run --rm \
-    -v "$WORKSPACE:/workspace" \
-    -w "/workspace/manuscrito/docs" \
-    "$IMAGE_NAME" \
-    latexmk \
-        -pdf \
-        -interaction=nonstopmode \
-        -file-line-error \
-        -output-directory="/workspace/manuscrito/compilation/build" \
-        main.tex
-
-# 4. Copiar PDF final
-if [ -f "$BUILD_DIR/main.pdf" ]; then
-    cp "$BUILD_DIR/main.pdf" "$MANUSCRITO_DIR/latest.pdf"
-    echo ""
-    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    echo "✅ Listo: manuscrito/latest.pdf"
-    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-else
-    echo ""
-    echo "❌ No se encontró el PDF. Revisa los errores arriba."
+# 4. Verificar y copiar PDF
+PDF="$BUILD_DIR/main.pdf"
+if [ ! -f "$PDF" ]; then
+    echo "❌ No se generó ningún PDF."
+    echo "   Log: manuscrito/compilation/build/main.log"
     exit 1
 fi
+
+PDF_SIZE=$(wc -c < "$PDF")
+cp "$PDF" "$MANUSCRITO_DIR/latest.pdf"
+
+if [ "$PDF_SIZE" -lt 10000 ]; then
+    echo "⚠️  El PDF parece incompleto (${PDF_SIZE} bytes) — revisa:"
+    echo "   manuscrito/compilation/build/main.log"
+    echo ""
+fi
+
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "✅ Listo: manuscrito/latest.pdf"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"

@@ -18,7 +18,7 @@
 
 % ============================================================
 % ENTORNOS FORMALES (marco teórico)
-% Uso: \begin{definicion}[Nombre de la definición]{def:label}
+% Uso: \begin{definicion}{Nombre de la definición}{def:label}
 %        Contenido...
 %      \end{definicion}
 % ============================================================
@@ -29,10 +29,17 @@
 \newcounter{formalcounter}[section]
 \renewcommand{\theformalcounter}{\thesection.\arabic{formalcounter}}
 
+% Registrar tipos de label para cleveref (requerido por label type=...)
+\crefname{definicion}{definición}{definiciones}
+\Crefname{definicion}{Definición}{Definiciones}
+\crefname{teorema}{teorema}{teoremas}
+\Crefname{teorema}{Teorema}{Teoremas}
+\crefname{observacion}{observación}{observaciones}
+\Crefname{observacion}{Observación}{Observaciones}
+
 % -- Definición --------------------------------------------------
 \newtcbtheorem[
-    use counter=formalcounter,
-    number freestyle={\noexpand\theformalcounter}
+    use counter=formalcounter
 ]{definicion}{Definición}{
     enhanced,
     breakable,
@@ -50,8 +57,7 @@
 
 % -- Teorema -----------------------------------------------------
 \newtcbtheorem[
-    use counter=formalcounter,
-    number freestyle={\noexpand\theformalcounter}
+    use counter=formalcounter
 ]{teorema}{Teorema}{
     enhanced,
     breakable,
@@ -69,8 +75,7 @@
 
 % -- Observación -------------------------------------------------
 \newtcbtheorem[
-    use counter=formalcounter,
-    number freestyle={\noexpand\theformalcounter}
+    use counter=formalcounter
 ]{observacion}{Observación}{
     enhanced,
     breakable,
