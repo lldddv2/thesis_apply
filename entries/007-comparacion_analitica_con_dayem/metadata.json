@@ -1,0 +1,33 @@
+{
+  "entry_title": "comparación analítica con dayem",
+  "date": "2026-05-07",
+  "summary": "Comparación de precesión orbital Schwarzschild y Lense-Thirring de S2 y S2/10 usando la aproximación 2PN de Dayem (2025) y la integración geodésica exacta GR con el integrador Mino de relatipy. Errores < 1.4% en ambos casos.",
+  "adjoined_files": {
+    "notebooks/007-comparacion_analitica_con_dayem.ipynb": "Notebook principal con la comparación",
+    "figures/007-comparacion_analitica_con_dayem/dayem_vs_fujita_schwarzschild.pdf": "Figura: precesión Schwarzschild y error relativo vs ε"
+  },
+  "tasks": {
+    "Establecer sistema de coordenadas: Elementos orbitales aparentes": {
+      "status": "done",
+      "type": "library",
+      "description": "Los Elementos orbitales aparentes, que son los dados por los telescopios, no toman en cuenta la rotación de los agujeros negros de Kerr, por ello se debe hacer una conversión a bl desde el plano.",
+      "comments": {
+      }
+    },
+    "Experimento con S2 con la linea visual": {
+      "status": "done",
+      "type": "scientific_result",
+      "description": "Asumimos que la visual de los elementos orbitales coincide con la del plano del BH",
+      "comments": {
+      }
+    },
+    "Experimento con S2 con 45° con respecto a la linea visual": {
+      "status": "done",
+      "type": "scientific_result",
+      "description": "Asumimos que la visual de los elementos orbitales coincide con la del plano del BH",
+      "comments": {
+      }
+    }
+  },
+  "extra": {}
+}

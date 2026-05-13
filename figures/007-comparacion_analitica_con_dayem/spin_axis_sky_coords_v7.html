@@ -1,0 +1,232 @@
+
+<style>
+  .ctrl{display:flex;align-items:center;gap:10px;margin:6px 0;font-size:13px;color:var(--color-text-secondary);}
+  .ctrl label{min-width:18px;}
+  .ctrl input[type=range]{flex:1;}
+  .ctrl span{min-width:48px;text-align:right;font-size:13px;color:var(--color-text-primary);font-weight:500;}
+  .legend-row{display:flex;align-items:center;gap:8px;margin:3px 0;font-size:12px;color:var(--color-text-secondary);}
+  .leg-line{width:26px;height:2px;display:inline-block;border-radius:1px;}
+  .leg-dash{width:26px;height:0;border-top:2px dashed;display:inline-block;}
+</style>
+
+<canvas id="c" style="width:100%;display:block;"></canvas>
+
+<div style="padding:0 8px 4px;">
+  <div class="ctrl">
+    <label>ζ</label>
+    <input type="range" id="zeta" min="0" max="180" value="50" step="1">
+    <span id="zeta-out">50°</span>
+  </div>
+  <div class="ctrl">
+    <label>η</label>
+    <input type="range" id="eta" min="0" max="360" value="40" step="1">
+    <span id="eta-out">40°</span>
+  </div>
+</div>
+
+<div style="display:flex;flex-wrap:wrap;gap:14px;padding:8px 8px 0;border-top:0.5px solid var(--color-border-tertiary);margin-top:4px;">
+  <div class="legend-row"><span class="leg-line" style="background:#378ADD;"></span>z-axis (line of sight)</div>
+  <div class="legend-row"><span class="leg-line" style="background:#EF9F27;"></span>spin axis</div>
+  <div class="legend-row"><span class="leg-dash" style="border-color:#EF9F27;opacity:.6;"></span>spin projection on sky</div>
+  <div class="legend-row"><span class="leg-line" style="background:#D85A30;"></span>ζ</div>
+  <div class="legend-row"><span class="leg-line" style="background:#1D9E75;"></span>η (CCW from Dec)</div>
+</div>
+
+<script>
+const W=680, H=430;
+const canvas=document.getElementById('c');
+const dpr=window.devicePixelRatio||1;
+canvas.width=W*dpr; canvas.height=H*dpr;
+canvas.style.width=W+'px'; canvas.style.height=H+'px';
+const ctx=canvas.getContext('2d');
+ctx.scale(dpr,dpr);
+
+const cx=310, cy=240;
+
+function isDark(){return window.matchMedia('(prefers-color-scheme: dark)').matches;}
+function T(){
+  const d=isDark();
+  return{
+    text:  d?'#c2c0b6':'#3d3d3a',
+    muted: d?'#888780':'#888780',
+    plane: d?'rgba(180,170,150,0.09)':'rgba(100,95,85,0.07)',
+    planeS:d?'rgba(180,170,150,0.22)':'rgba(80,75,65,0.20)',
+  };
+}
+
+const SCALE=155;
+
+function proj(v){
+  const sx=1.0, sy=0.36, ox=0.50, oy=0.36;
+  return[
+    cx - v[0]*sx*SCALE + v[1]*ox*SCALE,
+    cy - v[2]*SCALE    + v[1]*oy*SCALE
+  ];
+}
+
+function arrowTo(x1,y1,x2,y2,color,w,alpha){
+  ctx.save();
+  ctx.globalAlpha=alpha??1;
+  ctx.strokeStyle=color; ctx.fillStyle=color;
+  ctx.lineWidth=w; ctx.lineCap='round';
+  ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2); ctx.stroke();
+  const dx=x2-x1,dy=y2-y1,l=Math.sqrt(dx*dx+dy*dy);
+  if(l<2){ctx.restore();return;}
+  const ux=dx/l,uy=dy/l,hw=w*2.2,hl=w*3.5;
+  ctx.beginPath();
+  ctx.moveTo(x2,y2);
+  ctx.lineTo(x2-ux*hl-uy*hw,y2-uy*hl+ux*hw);
+  ctx.lineTo(x2-ux*hl+uy*hw,y2-uy*hl-ux*hw);
+  ctx.closePath(); ctx.fill();
+  ctx.restore();
+}
+
+function dashedLine(x1,y1,x2,y2,color,w,alpha){
+  ctx.save();
+  ctx.globalAlpha=alpha??1; ctx.strokeStyle=color;
+  ctx.lineWidth=w; ctx.setLineDash([5,4]); ctx.lineCap='round';
+  ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.restore();
+}
+
+function lbl(txt,x,y,color,size,align){
+  ctx.save();
+  ctx.fillStyle=color;
+  ctx.font=(size||13)+'px var(--font-sans,sans-serif)';
+  ctx.textAlign=align||'center';
+  ctx.textBaseline='middle';
+  ctx.fillText(txt,x,y);
+  ctx.restore();
+}
+
+function draw(){
+  const zetaDeg=+document.getElementById('zeta').value;
+  const etaDisplay=+document.getElementById('eta').value;  // CCW, shown to user
+  const etaInternal= etaDisplay===0 ? 0 : 360-etaDisplay; // CW, drives geometry
+  const zeta=zetaDeg*Math.PI/180;
+  const eta =etaInternal*Math.PI/180;
+  const t=T();
+
+  ctx.clearRect(0,0,W,H);
+
+  const corners=[[-1,-1,0],[1,-1,0],[1,1,0],[-1,1,0]].map(proj);
+  ctx.save();
+  ctx.beginPath();
+  ctx.moveTo(...corners[0]);
+  for(let i=1;i<4;i++) ctx.lineTo(...corners[i]);
+  ctx.closePath();
+  ctx.fillStyle=t.plane; ctx.fill();
+  ctx.strokeStyle=t.planeS; ctx.lineWidth=0.8;
+  ctx.setLineDash([6,4]); ctx.stroke(); ctx.setLineDash([]);
+  ctx.restore();
+
+  lbl('sky plane (observer)',proj([0.82,0.72,0])[0]+4,proj([0.82,0.72,0])[1]-6,t.muted,11,'start');
+
+  const o=proj([0,0,0]);
+
+  const decEnd=proj([0,-1.1,0]);
+  const raEnd =proj([-1.1,0,0]);
+
+  arrowTo(o[0],o[1],decEnd[0],decEnd[1],t.muted,1.4,0.7);
+  arrowTo(o[0],o[1],raEnd[0], raEnd[1], t.muted,1.4,0.7);
+
+  lbl('Dec (N)',decEnd[0],decEnd[1]-14,t.muted,12);
+  lbl('RA (E)', raEnd[0]-4,raEnd[1]+4, t.muted,12,'end');
+
+  const zTop=proj([0,0,1.18]);
+  arrowTo(o[0],o[1],zTop[0],zTop[1],'#378ADD',2.2);
+  lbl('z',zTop[0],zTop[1]-14,'#378ADD',14);
+  lbl('→ observer',zTop[0],zTop[1]-27,'#378ADD',11);
+
+  const spinV=[
+    -Math.sin(zeta)*Math.sin(eta),
+    -Math.sin(zeta)*Math.cos(eta),
+     Math.cos(zeta)
+  ];
+
+  const projLen=Math.sqrt(spinV[0]**2+spinV[1]**2);
+
+  if(projLen>0.01){
+    const pEnd=proj([spinV[0]*1.05,spinV[1]*1.05,0]);
+    dashedLine(o[0],o[1],pEnd[0],pEnd[1],'#EF9F27',1.5,0.55);
+  }
+
+  const sEnd=proj([spinV[0]*1.18,spinV[1]*1.18,spinV[2]*1.18]);
+  arrowTo(o[0],o[1],sEnd[0],sEnd[1],'#EF9F27',2.4);
+  lbl('spin axis',sEnd[0]+8,sEnd[1]-4,'#EF9F27',13,'start');
+
+  ctx.save();
+  ctx.fillStyle='#534AB7';
+  ctx.beginPath(); ctx.arc(o[0],o[1],7,0,2*Math.PI); ctx.fill();
+  lbl('BH',o[0]+12,o[1]+2,t.text,12,'start');
+  ctx.restore();
+
+  if(zetaDeg>2){
+    const rZ=54;
+    const zP=proj([0,0,0.5]);
+    const sP=proj([spinV[0]*0.5,spinV[1]*0.5,spinV[2]*0.5]);
+    const a0=Math.atan2(zP[1]-o[1],zP[0]-o[0]);
+    const a1=Math.atan2(sP[1]-o[1],sP[0]-o[0]);
+    let da=a1-a0;
+    while(da>Math.PI) da-=2*Math.PI;
+    while(da<-Math.PI) da+=2*Math.PI;
+    ctx.save();
+    ctx.strokeStyle='#D85A30'; ctx.lineWidth=1.5; ctx.setLineDash([4,3]);
+    ctx.beginPath();
+    ctx.arc(o[0],o[1],rZ,a0,a0+da,da<0);
+    ctx.stroke(); ctx.setLineDash([]);
+    ctx.restore();
+    const amid=a0+da/2;
+    lbl('ζ='+zetaDeg+'°',o[0]+(rZ+20)*Math.cos(amid),o[1]+(rZ+20)*Math.sin(amid),'#D85A30',13);
+  }
+
+  if(projLen>0.01&&etaDisplay>2&&etaDisplay<358){
+    const rE=40;
+    const decP=proj([0,-0.42,0]);
+    const pP  =proj([spinV[0]/projLen*0.42,spinV[1]/projLen*0.42,0]);
+    const a0=Math.atan2(decP[1]-o[1],decP[0]-o[0]);
+    const a1=Math.atan2(pP[1]-o[1],  pP[0]-o[0]);
+    let da=a1-a0;
+    while(da>Math.PI) da-=2*Math.PI;
+    while(da<-Math.PI) da+=2*Math.PI;
+    if(da>0) da-=2*Math.PI;
+    ctx.save();
+    ctx.strokeStyle='#1D9E75'; ctx.lineWidth=1.4; ctx.setLineDash([4,3]);
+    ctx.beginPath();
+    ctx.arc(o[0],o[1],rE,a0,a0+da,true);
+    ctx.stroke(); ctx.setLineDash([]);
+    ctx.restore();
+    const amid=a0+da/2;
+    lbl('η='+etaDisplay+'°',o[0]+(rE+20)*Math.cos(amid),o[1]+(rE+20)*Math.sin(amid),'#1D9E75',13);
+  }
+
+  const hints=[
+    ['ζ=0°',  'spin → at observer'],
+    ['ζ=90°', 'spin in sky plane'],
+    ['η=0°',  'spin projection along Dec (north)'],
+    ['η=90°', 'spin projection along RA (east), CCW'],
+  ];
+  ctx.save();
+  let iy=H-8-hints.length*17;
+  for(const[k,v] of hints){
+    ctx.font='11px var(--font-sans,sans-serif)';
+    ctx.textAlign='start'; ctx.textBaseline='middle';
+    ctx.fillStyle='#888780';
+    ctx.fillText(k+' — '+v,14,iy);
+    iy+=17;
+  }
+  ctx.restore();
+}
+
+function update(){
+  document.getElementById('zeta-out').textContent=document.getElementById('zeta').value+'°';
+  document.getElementById('eta-out').textContent=document.getElementById('eta').value+'°';
+  draw();
+}
+
+document.getElementById('zeta').addEventListener('input',update);
+document.getElementById('eta').addEventListener('input',update);
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',draw);
+draw();
+</script>

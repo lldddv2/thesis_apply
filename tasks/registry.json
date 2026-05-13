@@ -1,0 +1,9 @@
+{
+  "tasks": [
+    { "id": "scientific_result", "label": "Resultado científico", "color": "#7c6af5", "icon": "FlaskConical" },
+    { "id": "library",           "label": "Librería / Código",    "color": "#2563eb", "icon": "Code2" },
+    { "id": "writing",           "label": "Redacción",            "color": "#16a34a", "icon": "PenLine" },
+    { "id": "bibliography",      "label": "Bibliografía",         "color": "#d97706", "icon": "BookOpen" },
+    { "id": "seminary",          "label": "Seminario",            "color": "#dc2626", "icon": "GraduationCap" }
+  ]
+}

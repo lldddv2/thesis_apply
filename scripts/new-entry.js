@@ -27,6 +27,7 @@ const ROOT = path.resolve(__dirname, '..')
 const ENTRIES_DIR = path.join(ROOT, 'entries')
 const FIGURES_DIR = path.join(ROOT, 'figures')
 const NOTEBOOKS_DIR = path.join(ROOT, 'notebooks')
+const SLIDERS_DIR = path.join(ROOT, 'sliders')
 const INDEX_FILE = path.join(ENTRIES_DIR, 'index.json')
 
 function shortCellId() {
@@ -111,6 +112,41 @@ function createFiguresMetadata(slug) {
       caption: 'Notebook de la investigación.'
     }
   }
+}
+
+function sliderTemplate(title, date) {
+  return `---
+title: "${title}"
+author: "Luis Daniel Díaz Durango"
+date: "${date}"
+start_date: "${date}"
+end_date: "${date}"
+active: false
+---
+
+type: title
+
+---
+
+type: toc
+
+---
+
+header: ""
+footer: "Luis D. Díaz — ${date}"
+task: scientific_result
+
+## Contenido del slide
+
+Describí acá el trabajo realizado.
+
+---
+
+type: next-steps
+
+- Próximo paso 1
+- Próximo paso 2
+`
 }
 
 function createNotebookSkeleton(title) {
@@ -203,7 +239,13 @@ Ejemplo:
     console.error(`Error: Ya existe la carpeta de figuras "${figuresDir}".`)
     process.exit(1)
   }
-  
+
+  const sliderDir = path.join(SLIDERS_DIR, slug)
+  if (fs.existsSync(sliderDir)) {
+    console.error(`Slider directory already exists: ${sliderDir}`)
+    process.exit(1)
+  }
+
   // Crear directorios
   fs.mkdirSync(entryDir, { recursive: true })
   fs.mkdirSync(figuresDir, { recursive: true })
@@ -227,9 +269,15 @@ Ejemplo:
   )
   
   // Notebook vacío con el mismo nombre que el slug
+  const dateStr = getTodayDate()
   const notebook = createNotebookSkeleton(title)
   fs.writeFileSync(notebookPath, JSON.stringify(notebook, null, 2) + '\n')
-  
+
+  // Slider
+  fs.mkdirSync(sliderDir, { recursive: true })
+  fs.writeFileSync(path.join(sliderDir, 'slides.md'), sliderTemplate(title, dateStr))
+  console.log(`Created: sliders/${slug}/slides.md`)
+
   // Actualizar index.json
   updateIndex(slug)
   
@@ -240,17 +288,20 @@ Ejemplo:
   Entrada:  entries/${slug}/
   Figuras:  figures/${slug}/
   Notebook: notebooks/${slug}.ipynb
+  Slider:   sliders/${slug}/slides.md
 
 Archivos creados:
   - entries/${slug}/metadata.json
   - entries/${slug}/main.md
   - figures/${slug}/metadata.json
   - notebooks/${slug}.ipynb
+  - sliders/${slug}/slides.md
 
 Próximos pasos:
   1. Edita entries/${slug}/metadata.json para ajustar tareas o adjuntos
   2. Escribe el contenido en entries/${slug}/main.md
   3. Trabaja en notebooks/${slug}.ipynb y añade figuras en figures/${slug}/
+  4. Completa el slider en sliders/${slug}/slides.md
 `)
 }
 

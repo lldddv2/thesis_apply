@@ -1,0 +1,20 @@
+{
+    "007-comparacion_analitica_con_dayem.ipynb": {
+        "caption": "Notebook de la investigación."
+    },
+    "spin_axis_sky_coords_v7.html": {
+        "caption": "Ilustración de la escogencia de los ángulos $\\zeta$ y $\\eta$ para la orientación del spin. $\\zeta \\in [0°, 180°]$ representa el ángulo con el vector unitario de spin y $\\eta \\in [0°, 360°]$ el ángulo en sentido antohorario, tomando como cero la dirección donde la declinación decrece."
+    },
+    "orbit_coordinate_validation.html": {
+        "caption": "Muestra de la implementación de la componente visual que ilustra el plano celeste y la linea visual."
+    },
+"s2_spin_sweep_errors.jpg": {
+        "caption": "Precesiones y error absoluto en función del spin $\\chi$ para S2 ($\\iota=134.567°$, elementos orbitales fijos). Analítico: Dayem (2025); numérico: GR exacto (Fujita)."
+    },
+    "sweep_zeta_comparison.jpg": {
+        "caption": "Precesiones y error absoluto en función de $\\zeta$ para S2 ($\\chi=0.9$, $\\iota=134.567°$, elementos orbitales fijos). Analítico: Dayem (2025); numérico: GR exacto (Fujita)."
+    },
+    "sweep_zeta_results.csv": {
+        "caption": "Tabla de precesiones analíticas y numéricas en función de $\\zeta$ para S2 con $\\chi=0.9$."
+    }
+}

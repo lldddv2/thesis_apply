@@ -3,5 +3,7 @@
   "002-integradores_de_orbitas",
   "003-verificacion_de_comportamiento_esperado",
   "004-nuevo_integrador",
-  "005-comparacion_con_mecanica_clasica"
+  "005-comparacion_con_mecanica_clasica",
+  "006-implementacion_de_la_solucion_analitica",
+  "007-comparacion_analitica_con_dayem"
 ]
