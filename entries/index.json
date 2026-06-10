@@ -5,5 +5,7 @@
   "004-nuevo_integrador",
   "005-comparacion_con_mecanica_clasica",
   "006-implementacion_de_la_solucion_analitica",
-  "007-comparacion_analitica_con_dayem"
+  "007-comparacion_analitica_con_dayem",
+  "008-metodos_de_fitting_de_orbitas",
+  "009-mejorando_el_estimador"
 ]
