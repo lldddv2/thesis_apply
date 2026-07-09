@@ -1,0 +1,32 @@
+1. No aleatorios, sino uniformes sino espaciados y con huecos
+2. chisquare reducido
+3. usar sqrt( sigma x^2 + sigma y^2 + sigma z^2)
+
+Lo esperado es 20 por tomar 20 puntos, 30 es mucho
+
+Ver la variación las posiciones y velocidades
+
+
+analisis de u con puntos regularmente espaciados
+
+
+Hacer esto con trayectorias kepplerianas primero.
+
+No hacer nada con acencion recta y declinación hasta tener claro en 3D
+
+
+seguir con una orbita teorica. Generamos posiciones uniformemente distribuidads en xyz nos aseguramos que el
+Asegurar el chisquare.
+
+
+El chi square debe estar normalmente distribuido alrededor de 20.
+
+Hacer el ajuste, en keppler a 5 parámetros. En una geodésica a 9 parámetros
+
+Hacer que la rutina converja.
+
+Posibilidad fitt por etapas. Arrancamos del mismo punto y ajustando los parámetroz.
+
+No estimar sino a partir de el valor real.
+
+Dominando la herramienta de ajuste.

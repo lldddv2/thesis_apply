@@ -7,5 +7,6 @@
   "006-implementacion_de_la_solucion_analitica",
   "007-comparacion_analitica_con_dayem",
   "008-metodos_de_fitting_de_orbitas",
-  "009-mejorando_el_estimador"
+  "009-mejorando_el_estimador",
+  "010-reduccion_del_espacio_de_fase_solucion_newtoniana"
 ]

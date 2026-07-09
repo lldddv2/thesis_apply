@@ -1,8 +1,50 @@
 \subsection{Constantes en la métrica de Kerr}
 
-\subsubsection{Proyección del momento angular}
+En 1968, Carter publicó por primera vez las cuatro constantes de movimiento para las métricas de Kerr y Kerr-Newman \cite{carter1968global}. Dos de ellas se obtienen directamente de las simetrías de la métrica: la energía específica $E$ y la componente $z$ del momento angular específico $L_z$. Las otras dos, la norma de la cuadrivelocidad y la constante de Carter $Q$, se desarrollan a continuación.
+
+\subsubsection{Energía y momento angular}
+
+La métrica de Kerr en coordenadas Boyer-Lindquist es estacionaria y axisimétrica, por lo que admite los vectores de Killing $\xi^\mu = \partial_t$ y $\psi^\mu = \partial_\varphi$ \cite{carter1968global}. A cada vector de Killing le corresponde una cantidad conservada a lo largo de la geodésica: la contracción del vector de Killing con la cuadrivelocidad $\dot{x}^\mu$ es constante. De $\xi^\mu$ y $\psi^\mu$ se obtienen, respectivamente, la energía específica y la componente $z$ del momento angular específico.
+
+\begin{equation}
+    E = -g_{t\mu}\,\dot{x}^\mu, \qquad L_z = g_{\varphi\mu}\,\dot{x}^\mu \label{eq:energia_momento}
+\end{equation}
+
+En la ecuación \eqref{eq:energia_momento}, $\dot{x}^\mu = dx^\mu/d\tau$ es la cuadrivelocidad y $g_{\mu\nu}$ las componentes de la métrica de Kerr.
+
+\subsubsection{Norma cuadrada de la cuadrivelocidad}
+
+En el artículo original, Carter define $\tau = \mu \lambda$, donde $\lambda$ es un parámetro afín a lo largo de la geodésica y $\mu$ la masa de la partícula. Demuestra que el hamiltoniano no depende de dicho parámetro afín, por tanto el hamiltoniano es una constante de movimiento. Así termina demostrando que la norma cuadrada de la cuadrivelocidad es una constante de movimiento \cite{carter1968global}.
+
+\begin{equation}
+    g_{\mu\nu} \dot{x}^\mu\dot{x}^{\nu} = \mu^2 \label{eq:uu_prime}
+\end{equation}
+
+Dado que la ecuación de la geodésica no hace uso de la masa de la partícula, la elección del valor de $\mu$ en \eqref{eq:uu_prime} no afecta la trayectoria. Sin embargo, la elección sí es relevante para el cálculo de las constantes, pues modifica órdenes de magnitud y facilita o complica el análisis. Por lo tanto, de ahora en adelante, sin pérdida de generalidad, asumiremos que la masa es 1 para el cálculo de cantidades asociadas a la partícula.
+
+\begin{equation}
+    g_{\mu\nu} \dot{x}^\mu\dot{x}^{\nu} = 1 \label{eq:uu}
+\end{equation}
+
+La ecuación \eqref{eq:uu} nos establece una nueva constante de movimiento.
 
 
+\subsubsection{Constante de Carter}
 
-\subsection{Constante de Carter}
+Utilizando la teoría de Hamilton-Jacobi en coordenadas Boyer-Lindquist, Carter encontró una cuarta constante de movimiento $Q$, invariante a lo largo de la geodésica de tipo tiempo, que no se deriva de forma directa de las simetrías de la métrica \cite{carter1968global}.
 
+De ahora en adelante, usaremos la notación $Q$ para referirnos a esta constante de movimiento. Más aún, cuando hagamos referencia a la constante de Carter, nos referiremos a dicha constante en la métrica de Kerr en particular, a menos que se especifique lo contrario.
+
+\begin{equation}
+    Q = p_\theta^2 + \cos^2\theta \left[ a^2(\mu^2 - E^2) + \sin^{-2}\theta\, L_z^2 \right]
+    \label{eq:carter_constant_prime}
+\end{equation}
+
+La ecuación \eqref{eq:carter_constant_prime} es la forma moderna a la que se suele hacer referencia como constante de Carter \cite{gair2006improved}. En dicha ecuación, $p_\theta = g_{\theta\theta}\,\dot{\theta}$ es el momento conjugado a la coordenada $\theta$, $a$ el parámetro de spin del agujero negro, $\mu$ la masa de la partícula que orbita, $E$ la energía y $L_z$ la componente en $z$ del momento angular.
+
+\begin{equation}
+    Q = p_\theta^2 + \cos^2\theta \left[ a^2(1 - E^2) + \sin^{-2}\theta\, L_z^2 \right]
+    \label{eq:carter_constant}
+\end{equation}
+
+La ecuación \eqref{eq:carter_constant}, que hace uso de la convención de masa unitaria, será la definición de la constante de Carter que usaremos. Con las cuatro constantes de movimiento $E$, $L_z$, $Q$ y la norma de la cuadrivelocidad establecidas, en la siguiente sección desarrollamos las ecuaciones de la geodésica en las que estas constantes permiten separar el movimiento.
