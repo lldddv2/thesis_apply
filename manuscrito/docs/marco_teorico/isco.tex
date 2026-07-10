@@ -1,3 +1,24 @@
-\subsection{Isco en la métrica de kerr}
+\subsection{Órbita circular estable de menor radio (ISCO)}
 
-Se define como ISCO ( innermost stable circular orbit)
+Entre las órbitas de tipo tiempo de la métrica de Kerr resultan de particular utilidad las órbitas circulares ecuatoriales, es decir, aquellas de radio constante que permanecen en el plano $\theta = \pi/2$. No todas ellas son estables: existe un radio mínimo por debajo del cual una órbita circular deja de ser estable frente a perturbaciones radiales. A ese radio frontera lo llamamos ISCO (\textit{innermost stable circular orbit}), es decir, la órbita circular estable de menor radio. Para radios menores que el ISCO no existen órbitas circulares estables, de modo que el ISCO delimita la región interior en la que una partícula masiva ya no puede sostener una órbita circular sin caer hacia el agujero negro.
+
+La existencia de este radio frontera se entiende a partir del potencial radial $R(r)$ de la ecuación \eqref{eq:potencial_R}, que gobierna la oscilación radial del movimiento de tipo tiempo. Las órbitas circulares corresponden a puntos donde $R(r) = 0$ y $R'(r) = 0$, y su estabilidad frente a perturbaciones radiales depende del signo de $R''(r)$ en ese punto. Al disminuir el radio, el mínimo local del potencial efectivo se vuelve un punto de inflexión: en el ISCO se satisface además $R''(r) = 0$, de modo que el mínimo y el máximo del potencial coinciden, y por debajo de ese radio el potencial deja de presentar un mínimo, por lo que desaparecen las órbitas circulares estables.
+
+En la métrica de Kerr, el ISCO ecuatorial admite una expresión cerrada en función del parámetro de rotación, obtenida por Bardeen, Press y Teukolsky \cite{bardeen1972rotating}. Escribimos el parámetro de rotación en forma adimensional como $a_* = a/M$, con $a_* \in [0, 1]$, y definimos las cantidades auxiliares $Z_1$ y $Z_2$ mediante:
+
+\begin{align}
+    Z_1 &= 1 + (1 - a_*^2)^{1/3} \left[ (1 + a_*)^{1/3} + (1 - a_*)^{1/3} \right] \label{eq:isco_z1} \\
+    Z_2 &= \sqrt{3 a_*^2 + Z_1^2} \label{eq:isco_z2}
+\end{align}
+
+Con las cantidades $Z_1$ y $Z_2$ de las ecuaciones \eqref{eq:isco_z1} y \eqref{eq:isco_z2}, el radio del ISCO ecuatorial se expresa como:
+
+\begin{equation}
+    r_\mathrm{ISCO} = M \left[ 3 + Z_2 + s \sqrt{(3 - Z_1)(3 + Z_1 + 2 Z_2)} \right] \label{eq:isco_radio}
+\end{equation}
+
+En la ecuación \eqref{eq:isco_radio}, el signo $s$ distingue el sentido de giro de la partícula respecto del agujero negro: $s = -1$ corresponde a las órbitas prógradas, en las que la partícula gira en el mismo sentido que el agujero negro, y $s = +1$ a las órbitas retrógradas, en las que gira en sentido contrario. Para un mismo valor de $a_*$, la ecuación \eqref{eq:isco_radio} sitúa el ISCO prógrado a un radio menor que el retrógrado, de modo que la región de órbitas circulares estables se extiende más cerca del agujero negro en el caso prógrado.
+
+La ecuación \eqref{eq:isco_radio} reproduce los valores conocidos en los casos límite. Para $a_* = 0$ se recupera $Z_1 = Z_2 = 3$, y ambos signos conducen a $r_\mathrm{ISCO} = 6M$, el valor correspondiente a la métrica de Schwarzschild. Para el caso extremo $a_* = 1$ se obtiene $r_\mathrm{ISCO} = M$ para la órbita prógrada y $r_\mathrm{ISCO} = 9M$ para la retrógrada.
+
+El ISCO nos proporciona una escala de referencia natural para clasificar las condiciones iniciales de las geodésicas que estudiamos. Al expresar el radio de una órbita en unidades del ISCO correspondiente, distinguimos condiciones iniciales situadas dentro, cerca o fuera del ISCO, lo que nos permite anticipar en qué régimen de estabilidad se encuentra cada trayectoria antes de integrarla numéricamente.

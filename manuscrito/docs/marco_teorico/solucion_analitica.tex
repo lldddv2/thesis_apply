@@ -1,0 +1,65 @@
+\section{Solución analítica de las geodésicas de tipo tiempo}
+
+En 2009, Fujita y Hikida \cite{fujita2009analytical} encontraron una solución analítica para las geodésicas en la métrica de Kerr, basada en el tiempo de Mino \cite{mino2003perturbative}, la reparametrización \eqref{eq:tiempo_de_mino} que desacopla las ecuaciones radial y polar. Esta solución permite expresar las coordenadas en términos de integrales elípticas de Legendre de primera, segunda y tercera especie, e integrales elípticas de Jacobi, partiendo de los potenciales $R(r)$ de \eqref{eq:potencial_R} y $\Theta(\cos\theta)$ de \eqref{eq:potencial_Theta}.
+
+Para órbitas acotadas, el potencial radial $R(r)$ posee cuatro raíces reales $r_1 \geq r_2 \geq r_3 \geq r_4$, donde $r_1$ es el apoápside y $r_2$ el periápside. El potencial polar $\Theta(\cos\theta)$ se factoriza como:
+
+\begin{align}
+    \Theta(\cos\theta) = L_z^2\,\varepsilon_0\left(z_- - \cos^2\theta\right)\left(z_+ - \cos^2\theta\right), \label{eq:factorizacion_Theta}
+\end{align}
+
+En la factorización \eqref{eq:factorizacion_Theta}, $\varepsilon_0 = a^2(1-E^2)/L_z^2$, y $z_-$, $z_+$ son las raíces de $\Theta$ en la variable $\cos^2\theta$. La reducción a integrales elípticas se realiza mediante las transformaciones de variable y los módulos:
+
+\begin{align}
+    y_r &= \sqrt{\frac{r_1 - r_3}{r_1 - r_2}\cdot\frac{r - r_2}{r - r_3}}, \qquad
+    k_r = \sqrt{\frac{r_1 - r_2}{r_1 - r_3}\cdot\frac{r_3 - r_4}{r_2 - r_4}}, \label{eq:modulo_kr} \\
+    y_\theta &= \frac{\cos\theta}{\sqrt{z_-}}, \qquad
+    k_\theta = \sqrt{\frac{z_-}{z_+}}. \label{eq:modulo_ktheta}
+\end{align}
+
+Con los módulos \eqref{eq:modulo_kr} y \eqref{eq:modulo_ktheta}, las integrales de camino desde los puntos de retorno se reducen a integrales elípticas incompletas de primera especie $F(\varphi, k)$:
+
+\begin{align}
+    \int_{r_2}^{r} \frac{dr'}{\sqrt{R(r')}} &= \frac{2}{\sqrt{(1-E^2)(r_1-r_3)(r_2-r_4)}}\,F\!\left(\arcsin y_r,\, k_r\right), \label{eq:integral_r} \\
+    \int_{0}^{\cos\theta} \frac{d\cos\theta'}{\sqrt{\Theta(\cos\theta')}} &= \frac{1}{L_z\sqrt{\varepsilon_0 z_+}}\,F\!\left(\arcsin y_\theta,\, k_\theta\right). \label{eq:integral_theta}
+\end{align}
+
+Los períodos en tiempo de Mino se obtienen evaluando las integrales \eqref{eq:integral_r} y \eqref{eq:integral_theta} en los puntos de retorno:
+
+\begin{align}
+    \Lambda_r &= \frac{4\,K(k_r)}{\sqrt{(1-E^2)(r_1-r_3)(r_2-r_4)}}, \qquad
+    \Lambda_\theta = \frac{4\,K(k_\theta)}{L_z\sqrt{\varepsilon_0 z_+}}, \label{eq:periodos_mino}
+\end{align}
+
+donde $K(k) = F(\pi/2, k)$ es la integral elíptica completa de primera especie; $\Lambda_r$ y $\Lambda_\theta$ en \eqref{eq:periodos_mino} corresponden a un período completo de oscilación en $r$ y en $\theta$, respectivamente.
+
+La solución analítica para la coordenada radial, en términos de la función seno elíptico de Jacobi $\mathrm{sn}(u,k)$, es \cite{fujita2009analytical}:
+
+\begin{align}
+    r(\lambda) = \frac{r_3(r_1 - r_2)\,\mathrm{sn}^2(u_r,\,k_r) - r_2(r_1 - r_3)}{(r_1 - r_2)\,\mathrm{sn}^2(u_r,\,k_r) - (r_1 - r_3)}, \label{eq:solucion_r}
+\end{align}
+
+y para la coordenada polar:
+
+\begin{align}
+    \cos\theta(\lambda) = \sqrt{z_-}\,\mathrm{sn}(u_\theta,\,k_\theta), \label{eq:solucion_theta}
+\end{align}
+
+En las soluciones \eqref{eq:solucion_r} y \eqref{eq:solucion_theta}, $u_r$ y $u_\theta$ son funciones lineales a trozos de $\lambda$ que rastrean la fase dentro de cada período.
+
+Las coordenadas $t(\lambda)$ y $\varphi(\lambda)$ se obtienen integrando \eqref{eq:geodesica_t_mino} y \eqref{eq:geodesica_phi_mino}. La solución se descompone en una parte secular y una parte oscilatoria \cite{fujita2009analytical}:
+
+\begin{align}
+    t(\lambda) &= \Gamma\lambda + t^{(r)}(\lambda) + t^{(\theta)}(\lambda), \label{eq:solucion_t} \\
+    \varphi(\lambda) &= \Upsilon_\varphi\lambda + \varphi^{(r)}(\lambda) + \varphi^{(\theta)}(\lambda), \label{eq:solucion_phi}
+\end{align}
+
+En las soluciones \eqref{eq:solucion_t} y \eqref{eq:solucion_phi}, $\Gamma$ y $\Upsilon_\varphi$ son las frecuencias medias en tiempo de Mino, expresadas en términos de integrales elípticas completas de primera, segunda y tercera especie. Las partes oscilatorias $t^{(r)}$, $t^{(\theta)}$, $\varphi^{(r)}$, $\varphi^{(\theta)}$ resultan en combinaciones de integrales elípticas incompletas de segunda y tercera especie, evaluadas a lo largo de la órbita. Las frecuencias físicas observables \eqref{eq:frecuencias_fisicas} se relacionan con las frecuencias en tiempo de Mino mediante:
+
+\begin{align}
+    \Omega_r = \frac{\Upsilon_r}{\Gamma}, \qquad \Omega_\theta = \frac{\Upsilon_\theta}{\Gamma}, \qquad \Omega_\varphi = \frac{\Upsilon_\varphi}{\Gamma}, \label{eq:frecuencias_fisicas}
+\end{align}
+
+donde $\Upsilon_r = 2\pi/\Lambda_r$ y $\Upsilon_\theta = 2\pi/\Lambda_\theta$ son las frecuencias angulares en tiempo de Mino.
+
+Esta solución analítica cerrada constituye la referencia frente a la cual contrastamos la integración numérica de las geodésicas: la usamos tanto en la comparación entre las órbitas de Kerr y su límite newtoniano como en la validación de las precesiones frente a los resultados de la literatura.

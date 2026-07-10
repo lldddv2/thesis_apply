@@ -1,0 +1,29 @@
+\section{Método de proyección}
+
+La integración numérica de las ecuaciones de la geodésica introduce, en cada paso, un error de truncamiento que aparta al estado de la trayectoria exacta. Los integradores de propósito general, como el método implícito de Runge-Kutta de tipo Radau, no fueron diseñados para conservar las cantidades de movimiento del sistema, de modo que la energía específica $E$, la componente $z$ del momento angular específico $L_z$, la constante de Carter $Q$ y la norma de la cuadrivelocidad se desvían progresivamente de sus valores iniciales a medida que avanza la integración. Para las geodésicas de tipo tiempo en la métrica de Kerr, cuya caracterización descansa por completo en estas cuatro constantes de movimiento, esa acumulación de error compromete la fidelidad de la órbita a largo plazo. En esta sección presentamos un método de proyección que corrige el estado en cada paso, forzándolo a permanecer sobre la subvariedad definida por las cuatro constantes.
+
+Una primera estrategia para reducir esta deriva consiste en emplear un integrador simpléctico, que por construcción conserva de forma aproximada la estructura hamiltoniana del sistema. En particular, evaluamos el integrador simpléctico de composición de orden seis de Yoshida \cite{yoshida1990construction}. Sin embargo, en nuestras pruebas este esquema no reprodujo la conservación esperada: los errores relativos de $E$ y $L_z$ se mantuvieron del orden del $1\%$ y el error de la constante de Carter creció sin acotarse para inclinación inicial nula. Por ello adoptamos el método implícito de Radau como integrador base y le acoplamos una etapa de proyección, que es el procedimiento que describimos a continuación.
+
+\subsubsection{Restricciones de conservación}
+
+El método de proyección se apoya en cuatro restricciones, una por cada cantidad conservada, que deben anularse en todo instante a lo largo de la geodésica. Denotando por $\dot{x}^\mu$ la cuadrivelocidad y por $E_0$, $L_{z,0}$ y $Q_0$ los valores iniciales de las constantes, las restricciones son:
+
+\begin{align}
+    C_1 &= g_{\mu\nu}\,\dot{x}^\mu \dot{x}^\nu - 1 \label{eq:restriccion_norma} \\
+    C_2 &= -g_{0\mu}\,\dot{x}^\mu - E_0 \label{eq:restriccion_energia} \\
+    C_3 &= g_{3\mu}\,\dot{x}^\mu - L_{z,0} \label{eq:restriccion_momento} \\
+    C_4 &= p_\theta^2 + \cos^2\theta \left[ a^2(1 - E^2) + \frac{L_z^2}{\sin^2\theta} \right] - Q_0 \label{eq:restriccion_carter}
+\end{align}
+
+La restricción \eqref{eq:restriccion_norma} impone la normalización de la cuadrivelocidad para una partícula masiva, en la convención de masa unitaria de la ecuación \eqref{eq:uu}. Las restricciones \eqref{eq:restriccion_energia} y \eqref{eq:restriccion_momento} fijan la energía y el momento angular a partir de las definiciones de la ecuación \eqref{eq:energia_momento}, mientras que \eqref{eq:restriccion_carter} reproduce la constante de Carter de la ecuación \eqref{eq:carter_constant}. Un estado que satisface simultáneamente $C_1 = C_2 = C_3 = C_4 = 0$ yace sobre la subvariedad de estados físicamente admisibles.
+
+\subsubsection{Corrección por iteración de Newton}
+
+Dado un estado aproximado con cuadrivelocidad $\dot{x}^\mu$ producido por el integrador base, buscamos la corrección $\delta \dot{x}^\mu$ que restituye las restricciones, es decir, tal que $C_i(\dot{x} + \delta \dot{x}) = 0$. Linealizando el sistema de restricciones en torno al estado aproximado, la corrección se obtiene resolviendo el sistema lineal:
+
+\begin{equation}
+    J\, \delta \dot{x} = -C \label{eq:newton_proyeccion}
+\end{equation}
+
+donde $C = (C_1, C_2, C_3, C_4)$ es el vector de restricciones y $J$ es el jacobiano analítico $4 \times 4$ de componentes $J_{i\nu} = \partial C_i / \partial \dot{x}^\nu$. Resolvemos la ecuación \eqref{eq:newton_proyeccion} por eliminación gaussiana y actualizamos el estado de forma iterativa hasta alcanzar la tolerancia $\max_i |C_i| < 10^{-12}$. Puesto que $C_2$ y $C_3$ son lineales en la cuadrivelocidad, se ajustan en una sola iteración; las restricciones $C_1$ y $C_4$ son cuadráticas, de modo que la iteración de Newton converge típicamente en dos a tres pasos. Esta etapa de proyección se aplica después de cada paso del integrador de Radau, devolviendo el estado a la subvariedad de conservación antes de continuar la integración.
+

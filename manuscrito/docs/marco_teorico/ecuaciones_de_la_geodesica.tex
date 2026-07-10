@@ -1,0 +1,40 @@
+\section{Ecuaciones de la geodésica}
+
+Con las constantes de movimiento $E$, $L_z$ y $Q$ establecidas en la sección anterior, junto con la norma de la cuadrivelocidad, disponemos de la información necesaria para separar las ecuaciones de movimiento de una geodésica de tipo tiempo en la métrica de Kerr. Estas cantidades conservadas surgen de las simetrías de la métrica \cite{carter1968global} y permiten reducir el sistema de ecuaciones acopladas a un conjunto de ecuaciones de primer orden para cada coordenada.
+
+Las ecuaciones de movimiento en tiempo propio $\tau$, en coordenadas de Boyer-Lindquist, toman la forma:
+
+\begin{align}
+    \Sigma^2 \left(\frac{dr}{d\tau}\right)^2 &= R(r), \label{eq:geodesica_r_tau} \\
+    \Sigma^2 \left(\frac{d\cos\theta}{d\tau}\right)^2 &= \Theta(\cos\theta), \label{eq:geodesica_theta_tau} \\
+    \Sigma \frac{dt}{d\tau} &= T_r(r) + T_\theta(\cos\theta), \label{eq:geodesica_t_tau} \\
+    \Sigma \frac{d\varphi}{d\tau} &= \Phi_r(r) + \Phi_\theta(\cos\theta), \label{eq:geodesica_phi_tau}
+\end{align}
+
+En las ecuaciones \eqref{eq:geodesica_r_tau}, \eqref{eq:geodesica_theta_tau}, \eqref{eq:geodesica_t_tau} y \eqref{eq:geodesica_phi_tau}, el acoplamiento a través de $\Sigma = r^2 + a^2\cos^2\theta$ impide separar directamente las ecuaciones radial y polar.
+
+El tiempo de Mino $\lambda$ se define mediante la reparametrización \cite{mino2003perturbative}:
+
+\begin{align}
+    d\tau = \Sigma \, d\lambda, \qquad \Sigma = r^2 + a^2\cos^2\theta. \label{eq:tiempo_de_mino}
+\end{align}
+
+Con la reparametrización \eqref{eq:tiempo_de_mino}, las ecuaciones de movimiento toman la forma \cite{fujita2009analytical}:
+
+\begin{align}
+    \left(\frac{dr}{d\lambda}\right)^2 &= R(r), \label{eq:geodesica_r_mino} \\
+    \left(\frac{d\cos\theta}{d\lambda}\right)^2 &= \Theta(\cos\theta), \label{eq:geodesica_theta_mino} \\
+    \frac{dt}{d\lambda} &= T_r(r) + T_\theta(\cos\theta), \label{eq:geodesica_t_mino} \\
+    \frac{d\varphi}{d\lambda} &= \Phi_r(r) + \Phi_\theta(\cos\theta). \label{eq:geodesica_phi_mino}
+\end{align}
+
+La propiedad central del tiempo de Mino es que las ecuaciones \eqref{eq:geodesica_r_mino} y \eqref{eq:geodesica_theta_mino} quedan completamente desacopladas: la primera depende únicamente de $r$ y la segunda únicamente de $\theta$. Definiendo $P(r) = E(r^2 + a^2) - aL_z$, los potenciales y funciones auxiliares son:
+
+\begin{align}
+    R(r) &= \left[P(r)\right]^2 - \Delta\left[r^2 + (aE - L_z)^2 + Q\right], \label{eq:potencial_R} \\
+    \Theta(\cos\theta) &= Q - \left(Q + a^2(1-E^2) + L_z^2\right)\cos^2\theta + a^2(1-E^2)\cos^4\theta, \label{eq:potencial_Theta} \\
+    T_r(r) &= \frac{r^2 + a^2}{\Delta}\,P(r), \qquad T_\theta(\cos\theta) = -a^2 E\sin^2\theta + aL_z, \\
+    \Phi_r(r) &= \frac{a}{\Delta}\,P(r), \qquad \Phi_\theta(\cos\theta) = \frac{L_z}{\sin^2\theta} - aE.
+\end{align}
+
+Los potenciales $R(r)$ de \eqref{eq:potencial_R} y $\Theta(\cos\theta)$ de \eqref{eq:potencial_Theta} concentran toda la dependencia en las constantes de movimiento y gobiernan, respectivamente, la oscilación radial y polar de la órbita. En la siguiente sección mostramos que esta estructura desacoplada admite una solución analítica cerrada en términos de integrales elípticas.

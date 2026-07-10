@@ -1,0 +1,60 @@
+\section{Límite newtoniano}
+
+El límite newtoniano describe el régimen de baja curvatura, en el que el campo gravitatorio es débil y las velocidades son pequeñas frente a la velocidad de la luz. En este régimen la dinámica se reduce al problema kepleriano de dos cuerpos, cuya solución conocemos de forma cerrada. Usaremos esta construcción como referencia y prueba de consistencia para la solución relativista: la comparación entre la órbita de Kerr y su contraparte newtoniana permite verificar que el caso relativista recupera el comportamiento esperado cuando la curvatura es baja (véase la comparación Kerr contra Newton). En esta sección montamos el problema newtoniano que emplearemos como referencia, con énfasis en la reducción del espacio de fase que habilita su simetría.
+
+\subsubsection{Reducción del espacio de fase}
+
+El problema newtoniano de una partícula de prueba en el campo de una masa central puntual posee simetría esférica. Esta simetría restringe el movimiento a un plano fijo y hace que la geometría de la órbita quede completamente determinada por dos parámetros: el semieje mayor $a$ y la excentricidad $e$. Aquí $a$ denota el semieje mayor de la órbita, que no debe confundirse con el parámetro de rotación de Kerr introducido en las secciones anteriores. Por lo tanto, para caracterizar la órbita no es necesario especificar el espacio de fase completo, sino únicamente el par $(a, e)$.
+
+Esta reducción contrasta con el caso de la métrica de Kerr, donde la simetría esférica se rompe: la geometría es axisimétrica y estacionaria, pero no esféricamente simétrica, por lo que la trayectoria depende del conjunto de constantes de movimiento $E$, $L_z$ y $Q$ además de las condiciones iniciales. La ausencia de la simetría esférica en Kerr es precisamente lo que impide reducir el problema al par $(a, e)$ y motiva el tratamiento mediante las constantes de movimiento desarrolladas en la sección anterior.
+
+\subsubsection{Momento angular específico y período}
+
+El plano orbital queda fijado por el momento angular específico, definido como el producto vectorial de la posición por la velocidad:
+
+\begin{equation}
+    \vec{h} = \vec{r} \times \vec{v} \label{eq:momento_angular_especifico}
+\end{equation}
+
+En la ecuación \eqref{eq:momento_angular_especifico}, $\vec{r}$ es el vector de posición de la partícula respecto a la masa central y $\vec{v}$ su velocidad. En el problema newtoniano $\vec{h}$ es constante a lo largo de la órbita, y su dirección define la normal al plano orbital.
+
+El período orbital se obtiene de la tercera ley de Kepler, que relaciona el período con el semieje mayor:
+
+\begin{equation}
+    P^2 = \frac{4\pi^2}{G M}\, a^3 \label{eq:tercera_ley_kepler}
+\end{equation}
+
+En la ecuación \eqref{eq:tercera_ley_kepler}, $M$ es la masa central y $G$ la constante de gravitación. En el sistema de unidades que empleamos, en el que la masa central vale la unidad y las distancias se miden en unidades astronómicas y el tiempo en años, la expresión se reduce a $P = a^{3/2}$. El período así calculado fija la ventana temporal sobre la que integramos una única órbita.
+
+\subsubsection{Montaje del error astrométrico}
+
+Para comparar la órbita newtoniana con observaciones necesitamos expresar el error astrométrico en las unidades geométricas del problema. Partimos de un error angular $\theta$ dado en milisegundos de arco (mas), que convertimos a radianes usando que un radián equivale a $206265$ segundos de arco:
+
+\begin{equation}
+    \theta_{\text{rad}} = \frac{\theta_{\text{mas}}}{1000 \cdot 206265} \label{eq:mas_a_rad}
+\end{equation}
+
+Suponiendo que la fuente se encuentra a una distancia $R_0$ del observador, el error angular \eqref{eq:mas_a_rad} corresponde a un desplazamiento lineal en parsecs:
+
+\begin{equation}
+    d_{\text{pc}} = R_0\, \theta_{\text{rad}} \label{eq:error_lineal_pc}
+\end{equation}
+
+Finalmente expresamos el desplazamiento \eqref{eq:error_lineal_pc} en unidades geométricas, dividiendo por la masa del agujero negro central expresada en parsecs. La conversión de masa solar a parsec se realiza mediante:
+
+\begin{align}
+    d &= \frac{d_{\text{pc}}}{M_{\text{BH}}[\text{pc}]} \label{eq:error_geometrico} \\
+    M_{\text{BH}}[\text{pc}] &= 4.785 \times 10^{-14}\, M_{\text{BH}}[M_\odot] \label{eq:masa_solar_a_pc}
+\end{align}
+
+La ecuación \eqref{eq:error_geometrico} entrega el error posicional en las unidades geométricas del problema, y la ecuación \eqref{eq:masa_solar_a_pc} realiza la conversión de la masa central de masas solares a parsecs. Los valores de la distancia $R_0$ y de la masa central $M_{\text{BH}}$ del Centro Galáctico corresponden a mediciones astrométricas \cite{gillessen2017monitoring}.
+
+De manera análoga, el error en velocidad se expresa en unidades geométricas dividiendo por la velocidad de la luz. Para un error representativo del orden de $10\ \text{km/s}$:
+
+\begin{equation}
+    \delta v = \frac{v}{c} \approx \frac{10\ \text{km/s}}{3 \times 10^5\ \text{km/s}} \label{eq:error_velocidad}
+\end{equation}
+
+La ecuación \eqref{eq:error_velocidad} adimensionaliza el error de velocidad respecto a la velocidad de la luz, entregando un valor del orden de $3.3 \times 10^{-5}$.
+
+Con el problema newtoniano montado de esta forma, disponemos de una órbita de referencia de baja curvatura, determinada por el par $(a, e)$ y dotada de un modelo de error astrométrico consistente en unidades geométricas. Esta referencia es la que empleamos para validar la solución relativista en la comparación entre las órbitas de Kerr y de Newton.
