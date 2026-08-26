@@ -1,0 +1,34 @@
+% ============================================================================
+%  APÉNDICE A
+%
+%  ATENCIÓN — Desde julio de 2021, A&A publica los apéndices COMO MATERIAL
+%  CAMERA-READY. El editor no los tipografía, no los corrige y no cambia su
+%  layout después de recibir la versión aceptada. Lo que compiles aquí es
+%  literalmente lo que se publica.
+%
+%  Numeración: la clase convierte \section en "Appendix A", "Appendix B", ...
+%  Las subsecciones quedan A.1, A.2. Referenciar con \appref{app:derivations}.
+%
+%  FLOATS EN APÉNDICES
+%  Los floats deben quedar bajo su propio apéndice: ni antes del título, ni
+%  después del título del siguiente. En apéndices cortos, un {figure*} o
+%  {table*} genera una página en blanco. Receta recomendada por A&A:
+%
+%      \onecolumn
+%      \section{Título del apéndice}
+%      \begin{figure*}[ht!] ... \end{figure*}
+%      texto ...
+%      \FloatBarrier
+%      \twocolumn
+%
+%  Método alternativo, solo si el apéndice contiene floats y nada de texto:
+%  declarar el float primero y meter el \section DENTRO del float.
+%
+%  Si los floats se siguen escapando de su contexto, usar \onecolumn en todo
+%  el bloque de apéndices.
+% ============================================================================
+
+\section{Derivations}
+\label{app:derivations}
+
+Texto del apéndice.

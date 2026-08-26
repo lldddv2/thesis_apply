@@ -1,0 +1,101 @@
+% ============================================================================
+%  Manuscrito para Astronomy & Astrophysics
+%  Clase aa.cls v9.4 (EDP Sciences, 2026) — ver class/
+%
+%  Compilar desde este directorio:
+%      latexmk -pdf main.tex
+%  o, si no hay TeX local, subir build/submission/ a Overleaf (ver README.md).
+%
+%  ANTES DE ENVIAR:  uv run python tools/flatten.py
+% ============================================================================
+
+% -- Opciones de clase -------------------------------------------------------
+%   (ninguna)   layout estándar A&A, dos columnas
+%   letter      Letter to the Editor (la mención se añade sola)
+%   longauth    listas muy largas de autores/afiliaciones (van tras las refs.)
+%   onecolumn   artículos con fórmulas grandes; lo confirma el editor
+%   bibyear     si NO usas referencias estructuradas autor-año de natbib
+%   referee     versión para árbitro
+% ----------------------------------------------------------------------------
+\documentclass{aa}
+
+% A&A usa fuentes PostScript TX Times, no Computer Modern.
+\usepackage[varg]{txfonts}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% -- Matemáticas -------------------------------------------------------------
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+% -- Figuras y floats --------------------------------------------------------
+\usepackage{graphicx}
+\usepackage{subcaption}   % necesario para \ContinuedFloat
+\usepackage{lscape}       % tablas/figuras rotadas a página completa
+\usepackage{placeins}     % \FloatBarrier
+
+% -- Tablas ------------------------------------------------------------------
+\usepackage{longtable}
+\usepackage{csvsimple}
+\usepackage{xparse}
+\usepackage{etoolbox}
+
+% -- Bibliografía ------------------------------------------------------------
+\usepackage{natbib}
+\bibpunct{(}{)}{;}{a}{}{,}   % puntuación exigida por el estilo A&A
+
+% -- Comandos propios de autoría --------------------------------------------
+%  OJO: A&A pide no usar definiciones propias en el archivo enviado.
+%  tools/flatten.py las expande antes del envío. Ver aapaper.sty.
+\usepackage{aapaper}
+
+\graphicspath{{figures/}}
+
+\begin{document}
+
+% ============================================================================
+%  CABECERA: título, autores, afiliaciones, abstract, keywords
+% ============================================================================
+\input{metadata}
+\input{sections/00-abstract}
+
+\maketitle
+
+% Descomentar solo para publicar en arXiv (quita la numeración de líneas):
+% \nolinenumbers
+
+
+% ============================================================================
+%  CUERPO
+%  Orden fijo por prefijo numérico. Para reordenar, renombra los archivos.
+% ============================================================================
+\input{sections/01-introduction}
+\input{sections/02-methods}
+\input{sections/03-results}
+\input{sections/04-discussion}
+\input{sections/05-conclusions}
+\input{sections/99-acknowledgements}
+
+
+% ============================================================================
+%  BIBLIOGRAFÍA
+%  aa.bst debe viajar junto al fuente en el envío (está en class/).
+% ============================================================================
+\bibliographystyle{aa}
+\bibliography{refs}
+
+
+% ============================================================================
+%  APÉNDICES
+%
+%  Van SIEMPRE después de la bibliografía. Desde julio de 2021 A&A los publica
+%  como material camera-ready: el editor no los tipografía, no los corrige y
+%  no cambia su layout. Revisar el resultado con cuidado extra.
+% ============================================================================
+\begin{appendix}
+\input{appendices/A-derivations}
+\input{appendices/B-tables}
+\end{appendix}
+
+\end{document}

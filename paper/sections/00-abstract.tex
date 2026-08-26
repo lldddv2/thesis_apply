@@ -1,0 +1,51 @@
+% ============================================================================
+%  ABSTRACT Y KEYWORDS
+%
+%  A&A usa abstract ESTRUCTURADO: \abstract toma CINCO argumentos entre llaves,
+%  y los cinco son obligatorios como tokens, aunque el 1.o y el 5.o puedan ir
+%  vacíos ({}).
+%
+%      1. Context      opcional  — trasfondo del problema
+%      2. Aims         OBLIGATORIO — qué se propone el artículo
+%      3. Methods      OBLIGATORIO — cómo se investigó
+%      4. Results      OBLIGATORIO — qué se obtuvo
+%      5. Conclusions  opcional  — qué se concluye en general
+%
+%  Los encabezados ("Context.", "Aims.", ...) los pone la clase; no escribirlos.
+%
+%  Si prefieres el abstract tradicional de un solo párrafo, usa la forma de un
+%  único argumento: \abstract{...} — pero la estructurada es la preferida.
+%
+%  NO dejar líneas en blanco ni comentarios ENTRE los cinco grupos: una línea
+%  vacía abre un párrafo nuevo y rompe la lectura de los argumentos. Por eso
+%  van pegados abajo, y toda la explicación vive en este bloque.
+%
+%  Toda abreviatura de instrumento, método u observatorio se expande la primera
+%  vez aquí y otra vez en la introducción:
+%      ...very long baseline interferometry (VLBI)...
+% ============================================================================
+
+\abstract
+{}
+{Objetivo del trabajo.}
+{Métodos empleados.}
+{Resultados obtenidos.}
+{}
+
+% ----------------------------------------------------------------------------
+%  KEYWORDS
+%  Separadas por " -- " (en-dash rodeado de espacios).
+%  Tomarlas TEXTUALMENTE de la lista oficial de A&A; no inventar.
+%  Lista: https://www.aanda.org/for-authors/latex-issues/information-files
+%
+%  Candidatas para este proyecto (verificar en la lista antes de fijarlas):
+%    black hole physics
+%    gravitation
+%    relativistic processes
+%    celestial mechanics
+%    methods: numerical
+%    Galaxy: center
+% ----------------------------------------------------------------------------
+\keywords{black hole physics --
+          gravitation --
+          methods: numerical}

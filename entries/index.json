@@ -8,5 +8,6 @@
   "007-comparacion_analitica_con_dayem",
   "008-metodos_de_fitting_de_orbitas",
   "009-mejorando_el_estimador",
-  "010-reduccion_del_espacio_de_fase_solucion_newtoniana"
+  "010-reduccion_del_espacio_de_fase_solucion_newtoniana",
+  "011-determinacion_de_parametros_mediante_fisica"
 ]

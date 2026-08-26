@@ -1,0 +1,39 @@
+Bibliografia del manuscrito A&A.
+
+Estilo: aa.bst (en class/), via \bibliographystyle{aa} en main.tex.
+El .bib y el .bst deben viajar junto al fuente en el envio.
+
+Las entradas se obtienen de ADS (boton "Export Citation" -> BibTeX).
+
+CUIDADO: BibTeX NO trata el signo de porcentaje como comentario. En cuanto ve
+una arroba intenta leer una entrada, este o no precedida de porcentaje, y falla
+si esta incompleta. Por eso este encabezado no contiene ni una sola arroba:
+BibTeX ignora el texto plano fuera de las entradas, pero no el que las simula.
+Para desactivar una entrada, borrala o envuelvela en una entrada de tipo
+comment; anteponer un porcentaje NO basta.
+
+Ejemplos de entradas listas para copiar: references/references-and-bibtex.md
+en la skill aa-paper.
+
+OBLIGATORIO: anadir el campo eprint cuando el journal sea "ArXiv e-prints" o
+"Astrophysics Source Code Library". A&A lo exige y aa.cls lo convierte en
+enlace mediante \eprint.
+
+No se listan aqui los articulos "in prep." ni las comunicaciones privadas. Esos
+van solo en el texto ("Nombre, in prep."; "Nombre YYYY, priv. comm.").
+
+La entrada de abajo es un PLACEHOLDER: existe solo para que el esqueleto
+compile, porque un thebibliography sin ninguna \bibitem es un error de LaTeX.
+Esta copiada del aa_example.tex oficial de EDP Sciences (ver reference/).
+Borrala en cuanto tengas tus propias referencias, junto con su \citep en
+sections/01-introduction.tex.
+
+@INCOLLECTION{baker66,
+  author    = {{Baker}, N.},
+  title     = {Stellar Evolution},
+  booktitle = {Stellar Evolution},
+  editor    = {{Stein}, R. F. and {Cameron}, A. G. W.},
+  publisher = {Plenum, New York},
+  year      = 1966,
+  pages     = {333}
+}

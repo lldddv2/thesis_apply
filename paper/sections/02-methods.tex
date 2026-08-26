@@ -1,0 +1,43 @@
+% ============================================================================
+%  2. METHODS
+%
+%  Reglas A&A sobre ecuaciones:
+%    - Toda ecuación referenciada con \ref necesita su \label. Solo ese
+%      mecanismo; nada de numerar a mano.
+%    - Puntuar las ecuaciones como si fueran texto: coma o punto al final.
+%    - Delimitadores con \left( ... \right) para que escalen con la fórmula.
+%    - En modo matemático, todo va en itálica por defecto. Lo que NO es una
+%      variable va en redonda:
+%          \mathrm{d}   diferencial
+%          \mathrm{e}   base del logaritmo natural
+%          \mathrm{i}   unidad imaginaria
+%          $T_\mathrm{eff}$, $m_\mathrm{e}$   subíndices que son etiquetas
+%          \mbox{Hz}, \mathrm{km\,s^{-1}}     unidades
+%      Pero SÍ en itálica si el subíndice es a su vez una variable.
+%    - Vectores: \vec{A}.  Tensores: \tens{ABC}.  Solo en modo matemático.
+%    - La numeración de ecuaciones en A&A es correlativa en todo el artículo,
+%      no por sección.
+% ============================================================================
+
+\section{Methods}
+\label{sec:methods}
+
+Texto de la sección.
+
+% ----------------------------------------------------------------------------
+%  Ejemplo de ecuación numerada y referenciable
+% ----------------------------------------------------------------------------
+% \begin{equation}
+%   \label{eq:geodesic}
+%   \frac{\mathrm{d}^2 x^\mu}{\mathrm{d}\tau^2}
+%     + \Gamma^\mu_{\ \alpha\beta}
+%       \frac{\mathrm{d}x^\alpha}{\mathrm{d}\tau}
+%       \frac{\mathrm{d}x^\beta}{\mathrm{d}\tau} = 0 \,,
+% \end{equation}
+%
+% donde $\tau$ es el tiempo propio.
+
+\subsection{Subsección}
+\label{sec:methods-sub}
+
+Texto.

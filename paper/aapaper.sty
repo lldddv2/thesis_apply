@@ -1,0 +1,273 @@
+% ============================================================================
+%  aapaper.sty — comandos de autoría para manuscritos Astronomy & Astrophysics
+% ============================================================================
+%
+%  AVISO IMPORTANTE
+%  ----------------
+%  A&A pide explícitamente (TeXnical background information):
+%
+%      "Please refrain from using any self-made definitions since these will
+%       get lost during further conversion of your text. If you use typing
+%       abbreviations, 'search and replace' them before submitting your
+%       article to the publisher."
+%
+%  Estos comandos son SOLO PARA ESCRIBIR. Antes de enviar a EDP Sciences,
+%  ejecutar:
+%
+%      uv run python tools/flatten.py
+%
+%  que expande cada macro \aa... a LaTeX A&A crudo en build/submission/ y
+%  verifica que no quede ninguna definición propia.
+%
+%  Paquetes requeridos (cargarlos en main.tex antes de \usepackage{aapaper}):
+%      graphicx, xparse, csvsimple, longtable, lscape, subcaption, placeins
+%
+% ============================================================================
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{aapaper}[2026/08/24 v1.0 A&A authoring commands]
+
+\RequirePackage{graphicx}
+\RequirePackage{xparse}
+\RequirePackage{etoolbox}
+\RequirePackage{csvsimple}
+\RequirePackage{longtable}
+
+% ----------------------------------------------------------------------------
+%  NOTA SOBRE NUMERACIÓN
+%  A&A numera figuras, tablas y ecuaciones de forma correlativa en todo el
+%  artículo. NO usar \numberwithin{figure}{section} — eso es convención de
+%  tesis, no de A&A.
+% ----------------------------------------------------------------------------
+
+
+% ============================================================================
+%  FIGURAS
+% ============================================================================
+%
+%  A&A admite tres anchos, y solo tres:
+%
+%    88 mm   una columna         \aafig
+%   180 mm   dos columnas        \aafigwide
+%   120 mm   intermedio, con el caption al costado derecho   \aafigside
+%
+%  La oficina de producción reduce la mayoría de las figuras a 88 mm, así que
+%  el ancho de una columna debe ser el caso por defecto.
+% ============================================================================
+
+% ----------------------------------------------------------------------------
+%  \aafig[label]{archivo}{caption}[colocación]
+%
+%    label       (opcional)  — clave para \ref{}; si se omite, no se emite \label
+%    archivo     (obligatorio) — nombre dentro de figures/ (ver \graphicspath)
+%    caption     (obligatorio) — pie de figura
+%    colocación  (opcional, default ht!) — especificador de float
+%
+%  Expande al patrón de una columna que A&A documenta:
+%      \resizebox{\hsize}{!}{\includegraphics{...}}
+% ----------------------------------------------------------------------------
+\NewDocumentCommand{\aafig}{O{} m m O{ht!}}{%
+  \begin{figure}[#4]
+    \centering
+    \resizebox{\hsize}{!}{\includegraphics{#2}}%
+    \caption{#3}
+    \IfBlankF{#1}{\label{#1}}%
+  \end{figure}%
+}
+
+% ----------------------------------------------------------------------------
+%  \aafigwide[label]{archivo}{caption}[colocación]
+%
+%  Figura a dos columnas (180 mm). Los floats anchos deben declararse
+%  TEMPRANO en el fuente: LaTeX solo puede empujarlos hacia adelante.
+% ----------------------------------------------------------------------------
+\NewDocumentCommand{\aafigwide}{O{} m m O{ht!}}{%
+  \begin{figure*}[#4]
+    \centering
+    \includegraphics[width=17cm]{#2}%
+    \caption{#3}
+    \IfBlankF{#1}{\label{#1}}%
+  \end{figure*}%
+}
+
+% ----------------------------------------------------------------------------
+%  \aafigside[label]{archivo}{caption}[colocación]
+%
+%  Ancho intermedio (120 mm) con el caption a la derecha. \sidecaption va
+%  ANTES del \includegraphics; el \caption va después. Ese orden lo impone
+%  aa.cls y no es negociable.
+% ----------------------------------------------------------------------------
+\NewDocumentCommand{\aafigside}{O{} m m O{ht!}}{%
+  \begin{figure*}[#4]
+    \sidecaption
+    \includegraphics[width=12cm]{#2}%
+    \caption{#3}
+    \IfBlankF{#1}{\label{#1}}%
+  \end{figure*}%
+}
+
+% ----------------------------------------------------------------------------
+%  \aafigmulti[label]{archivo1,archivo2,...}{caption}[colocación]
+%
+%  Varios gráficos dentro de un mismo float a dos columnas. Si en el caption
+%  te refieres a las partes como (a), (b), (c), esas letras deben estar
+%  dibujadas dentro del área de cada imagen — regla de A&A.
+% ----------------------------------------------------------------------------
+\NewDocumentCommand{\aafigmulti}{O{} m m O{ht!}}{%
+  \begin{figure*}[#4]
+    \centering
+    \forcsvlist{\aa@includegraphic}{#2}%
+    \caption{#3}
+    \IfBlankF{#1}{\label{#1}}%
+  \end{figure*}%
+}
+\newcommand{\aa@includegraphic}[1]{\includegraphics{#1}}
+
+
+% ============================================================================
+%  TABLAS DESDE CSV
+% ============================================================================
+%
+%  Reglas de A&A que estos comandos aplican automáticamente:
+%
+%    - El caption va SIEMPRE arriba de la tabla.
+%    - Filetes: \hline\hline arriba, \hline bajo el encabezado, \hline al
+%      cierre. A&A NO usa booktabs (nada de \toprule / \midrule / \bottomrule).
+%    - Columnas alineadas a la izquierda por defecto.
+%    - Sin líneas verticales.
+%    - Altura máxima 23.5 cm incluyendo el caption.
+%
+%  Formato del CSV:
+%    - Primera fila = encabezado.
+%    - Las celdas pueden contener LaTeX crudo: $M_\odot$, \tablefootmark{a}.
+%    - Separador: coma. Si un valor lleva coma, encerrarlo en comillas dobles.
+% ============================================================================
+
+% Alineación por defecto de las columnas generadas ("l" = flush left, A&A).
+% Redefinible localmente: \renewcommand{\aatablealign}{c} antes de una tabla.
+\newcommand{\aatablealign}{l}
+
+\makeatletter
+% -- tabular normal, filetes A&A --------------------------------------------
+\csvset{
+  aa@autotable/.style={
+    file=#1,
+    after head=\csv@pretable
+      \begin{tabular}{*{\csv@columncount}{\aatablealign}}\csv@tablehead,
+    table head=\hline\hline\csvlinetotablerow\\\hline,
+    late after line=\\,
+    table foot=\\\hline,
+    late after last line=\csv@tablefoot\end{tabular}\csv@posttable,
+    command=\csvlinetotablerow,
+  },
+}
+
+% -- longtable con encabezado repetido y caption "continued." ---------------
+\csvset{
+  aa@autolongtable/.style={
+    file=#1,
+    after head=\csv@pretable
+      \begin{longtable}{*{\csv@columncount}{\aatablealign}}\csv@tablehead,
+    table head=%
+      \caption{\aa@longcaption}\\%
+      \label{\aa@longlabel}\\%
+      \hline\hline\csvlinetotablerow\\\hline
+      \endfirsthead
+      \caption{continued.}\\%
+      \hline\hline\csvlinetotablerow\\\hline
+      \endhead
+      \hline
+      \endfoot,
+    late after line=\\,
+    table foot=\\,
+    late after last line=\csv@tablefoot\end{longtable}\csv@posttable,
+    command=\csvlinetotablerow,
+  },
+}
+\makeatother
+
+% ----------------------------------------------------------------------------
+%  \aatable[label]{archivo.csv}{caption}[nota]
+%
+%    label     (opcional)   — clave para \ref{}
+%    archivo   (obligatorio)— ruta al CSV (normalmente tables/algo.csv)
+%    caption   (obligatorio)— va arriba, como pide A&A
+%    nota      (opcional)   — texto para \tablefoot{}; se omite si va vacío
+%
+%  Tabla a una columna.
+% ----------------------------------------------------------------------------
+\NewDocumentCommand{\aatable}{O{} m m O{}}{%
+  \begin{table}[ht!]
+    \caption{#3}
+    \IfBlankF{#1}{\label{#1}}%
+    \centering
+    \csvloop{aa@autotable={#2}}%
+    \IfBlankF{#4}{\tablefoot{#4}}%
+  \end{table}%
+}
+
+% ----------------------------------------------------------------------------
+%  \aatablewide[label]{archivo.csv}{caption}[nota]
+%
+%  Igual, pero a dos columnas (table*). Declararla temprano en el fuente.
+% ----------------------------------------------------------------------------
+\NewDocumentCommand{\aatablewide}{O{} m m O{}}{%
+  \begin{table*}[ht!]
+    \caption{#3}
+    \IfBlankF{#1}{\label{#1}}%
+    \centering
+    \csvloop{aa@autotable={#2}}%
+    \IfBlankF{#4}{\tablefoot{#4}}%
+  \end{table*}%
+}
+
+% ----------------------------------------------------------------------------
+%  \aatablelong[n]{archivo.csv}{caption}{label}
+%
+%    n        (opcional, default 1) — índice del \longtab; uno distinto por tabla
+%    archivo  (obligatorio) — ruta al CSV
+%    caption  (obligatorio)
+%    label    (obligatorio) — aquí NO es opcional: una tabla larga sin \ref
+%                             en el texto no tiene sentido
+%
+%  Envuelve en \longtab[n]{...}, que preserva la numeración correlativa y
+%  coloca la tabla automáticamente después de los apéndices. Es la vía que A&A
+%  recomienda frente a \longtable*, que solo funciona en onecolumn.
+%
+%  Genera \endfirsthead / \endhead / \endfoot con repetición del encabezado y
+%  un caption "continued." en las páginas siguientes, como exige el ejemplo
+%  oficial.
+% ----------------------------------------------------------------------------
+\makeatletter
+\newcommand{\aa@longcaption}{}
+\newcommand{\aa@longlabel}{}
+\NewDocumentCommand{\aatablelong}{O{1} m m m}{%
+  \renewcommand{\aa@longcaption}{#3}%
+  \renewcommand{\aa@longlabel}{#4}%
+  \longtab[#1]{\csvloop{aa@autolongtable={#2}}}%
+}
+\makeatother
+
+% ----------------------------------------------------------------------------
+%  \aatablebib{texto}
+%
+%  Pasarela a \tablebib de aa.cls, para las referencias bajo una tabla.
+%  Uso: \aatablebib{(1)~\citet{gillessen17}; (2) \citet{gravity18}.}
+% ----------------------------------------------------------------------------
+\NewDocumentCommand{\aatablebib}{m}{\tablebib{#1}}
+
+
+% ============================================================================
+%  ATAJOS DE TEXTO
+% ============================================================================
+%  A&A obliga a abreviar Sect./Fig./Col. fuera de inicio de frase, y a usar
+%  espacio fijo (~) antes del número. "Table" NUNCA se abrevia.
+% ============================================================================
+
+\NewDocumentCommand{\secref}{m}{Sect.~\ref{#1}}
+\NewDocumentCommand{\figref}{m}{Fig.~\ref{#1}}
+\NewDocumentCommand{\tabref}{m}{Table~\ref{#1}}
+\NewDocumentCommand{\eqnref}{m}{Eq.~(\ref{#1})}
+\NewDocumentCommand{\appref}{m}{Appendix~\ref{#1}}
+
+\endinput

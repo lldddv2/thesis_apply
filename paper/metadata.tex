@@ -1,0 +1,34 @@
+% ============================================================================
+%  Cabecera del manuscrito: título, autores, afiliaciones, fecha
+%  El abstract y las keywords viven en sections/00-abstract.tex
+%
+%  Reglas A&A (manuscript header):
+%    - Separar cada autor con \and.
+%    - \corrauth{correo} marca al autor de correspondencia; aa.cls v9.4 lo
+%      convierte solo en una nota al pie. Un único \corrauth por artículo.
+%    - \email{correo} NO se imprime: lo extrae el sistema editorial de EDPS
+%      para que cada coautor autentique su ORCID.
+%    - NO poner ORCIDs junto a los nombres. Se eliminan en producción.
+%    - El título puede partirse con \\ y llevar \thanks (separados con \fnmsep).
+% ============================================================================
+
+\title{Título del artículo\thanks{Nota al pie del título, si hace falta:
+       agencia de financiación, número de proyecto, etc.}}
+
+% Quitar por completo si no hay subtítulo.
+\subtitle{Subtítulo}
+
+\author{
+  Luis Daniel Díaz\inst{1}\corrauth{correo@udea.edu.co}
+  \and Nombre Coautor\inst{1}\email{coautor@udea.edu.co}
+  \and Nombre Coautor\inst{2}\email{coautor@otra.edu}
+}
+
+\institute{
+  Instituto de Física, Universidad de Antioquia, Calle 70 No. 52-21,
+  Medellín, Colombia
+  \and
+  Segunda afiliación, Ciudad, País
+}
+
+\date{Received DD Month YYYY / Accepted DD Month YYYY}

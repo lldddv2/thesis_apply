@@ -1,0 +1,84 @@
+% ============================================================================
+%  3. RESULTS
+%
+%  Esta es la sección donde normalmente viven las figuras y las tablas.
+%  Referencia rápida de los comandos de aapaper.sty; el detalle está en
+%  la skill global aa-paper (references/figures.md y references/tables.md).
+%
+%  ------------------------------------------------------------------ FIGURAS
+%  A&A admite tres anchos y solo tres:
+%
+%    \aafig[label]{archivo}{caption}[colocación]        88 mm, una columna
+%    \aafigside[label]{archivo}{caption}[colocación]   120 mm, caption al lado
+%    \aafigwide[label]{archivo}{caption}[colocación]   180 mm, dos columnas
+%    \aafigmulti[label]{f1,f2,f3}{caption}[colocación] varios gráficos
+%
+%  El archivo se busca en figures/ (ver \graphicspath en main.tex).
+%  Los floats a dos columnas hay que declararlos TEMPRANO en el fuente:
+%  LaTeX solo puede empujarlos hacia adelante, nunca hacia atrás.
+%
+%  Requisitos de las imágenes:
+%    - eps, pdf, jpg, png o tiff. Bitmaps a 250-300 dpi mínimo, no 92.
+%    - Recortar el espacio vacío alrededor.
+%    - Sin grids ni fondos de color salvo que aporten información.
+%    - Nada de rojo+verde juntos (accesibilidad para daltonismo).
+%    - Sin líneas finas; en minúsculas el texto dentro de la figura.
+%    - Los símbolos se explican en el caption, no dentro de la figura.
+%
+%  ------------------------------------------------------------------- TABLAS
+%    \aatable[label]{archivo.csv}{caption}[nota]        una columna
+%    \aatablewide[label]{archivo.csv}{caption}[nota]    dos columnas
+%    \aatablelong[n]{archivo.csv}{caption}{label}       multipágina
+%    \aatablebib{(1)~\citet{...}; (2) \citet{...}.}     refs. bajo la tabla
+%
+%  El CSV va en tables/. Primera fila = encabezado. Las celdas admiten LaTeX
+%  crudo ($M_\odot$, \tablefootmark{a}). Si un valor lleva coma, comillas
+%  dobles alrededor.
+%
+%  Los comandos ya aplican las reglas A&A: caption arriba, \hline\hline /
+%  \hline / \hline (NO booktabs), columnas a la izquierda, sin líneas
+%  verticales. La tabla completa no debe exceder 23.5 cm de alto.
+%
+%  Notas al pie de tabla:
+%    - general:     el 4.o argumento de \aatable pasa a \tablefoot{}
+%    - referenciada: \tablefootmark{a} en la celda del CSV, y en la nota
+%                    \tablefoottext{a}{texto de la nota}
+% ============================================================================
+
+\section{Results}
+\label{sec:results}
+
+Texto de la sección. Ejemplo vivo de los comandos: la \figref{fig:demo} y la
+\tabref{tab:demo} de abajo compilan y se expanden con \texttt{tools/flatten.py}.
+Bórralas cuando empieces a escribir de verdad.
+
+\aafig[fig:demo]{demo}{Figura de demostración.}
+
+\aatable[tab:demo]{tables/demo.csv}
+  {Tabla de demostración generada desde \texttt{tables/demo.csv}.}
+  [Nota general de la tabla.
+   \tablefoottext{a}{Nota referenciada desde una celda del CSV.}]
+
+% ----------------------------------------------------------------------------
+%  Ejemplos — descomentar y adaptar
+% ----------------------------------------------------------------------------
+%
+% \aafig[fig:orbit]{orbit.pdf}{Projected orbit of \object{S2} around
+%   \object{Sgr A*}. Filled circles mark the astrometric epochs.}
+%
+% \aafigwide[fig:residuals]{residuals.pdf}{Residuals of the fit in right
+%   ascension (\emph{left}) and declination (\emph{right}).}
+%
+% \aafigside[fig:posterior]{posterior.pdf}{Marginalised posterior distribution
+%   of the black hole mass.}
+%
+% \aatable[tab:elements]{tables/elements.csv}
+%   {Best-fitting orbital elements.}
+%   [Uncertainties are the 68\% credible intervals.
+%    \tablefoottext{a}{Held fixed during the fit.}]
+%
+% \aatablewide[tab:comparison]{tables/comparison.csv}
+%   {Comparison with previous determinations.}
+%
+% \aatablelong[1]{tables/catalogue.csv}{Full astrometric catalogue.}{tab:catalogue}
+% ----------------------------------------------------------------------------

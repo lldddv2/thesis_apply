@@ -1,0 +1,30 @@
+% ============================================================================
+%  APÉNDICE B — Tablas extensas
+%
+%  Dos vías para una tabla que no cabe en una página:
+%
+%  1. \aatablelong[n]{csv}{caption}{label} en el CUERPO del artículo.
+%     Envuelve en \longtab[n]{...}, que conserva la numeración correlativa y
+%     coloca la tabla automáticamente después de los apéndices. Es la vía que
+%     A&A recomienda, porque \longtable* solo funciona en onecolumn.
+%
+%  2. longtable directo dentro de un apéndice en \onecolumn, como abajo.
+%
+%  Rotadas: \begin{landscape} (paquete lscape) alrededor del longtable, o el
+%  entorno sidewaystable* para una única página rotada.
+%
+%  Las tablas grandes de datos primarios NO van en el artículo: se archivan en
+%  el CDS en ASCII con su ReadMe, y en el texto se describe el contenido de
+%  cada columna. Ver la skill aa-paper, references/tables.md.
+% ============================================================================
+
+\onecolumn
+\section{Supplementary tables}
+\label{app:tables}
+
+Texto introductorio de las tablas.
+
+% \aatablelong[2]{tables/catalogue.csv}{Full catalogue.}{tab:appcatalogue}
+
+\FloatBarrier
+\twocolumn

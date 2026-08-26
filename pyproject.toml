@@ -6,16 +6,24 @@ readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
     "astroquery>=0.4.11",
+    "emcee>=3.1.6",
     "graphifyy>=0.8.30",
     "graphipy>=0.0.1",
     "joblib>=1.5.3",
     "numpy>=2.4.6",
+    "orbitize>=3.4.0",
     "pandas>=3.0.3",
     "rebound>=5.0.0",
     "relatipy",
     "scipy>=1.17.1",
     "seaborn>=0.13.2",
+    "tqdm>=4.70.0",
 ]
 
 [tool.uv.sources]
 relatipy = { path = "../relatipy", editable = true }
+
+[dependency-groups]
+dev = [
+    "ipykernel>=7.3.0",
+]

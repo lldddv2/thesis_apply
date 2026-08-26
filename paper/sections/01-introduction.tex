@@ -1,0 +1,59 @@
+% ============================================================================
+%  1. INTRODUCTION
+%
+%  A&A exige que el manuscrito empiece por "1. Introduction". La numeración la
+%  lleva LaTeX: nunca escribir el número a mano.
+%
+%  Jerarquía disponible:
+%      \section{Título}        -> 1.
+%      \subsection{Título}     -> 1.1
+%      \subsubsection{Título}  -> 1.1.1
+%      \paragraph{Título}
+%  Toda sección necesita un título corto y descriptivo.
+%
+%  Cross-referencing: \label en TODA sección, figura, tabla y ecuación
+%  referenciada; \ref para citarlas. A&A lo convierte en hipervínculos HTML.
+%  Atajos de aapaper.sty: \secref{} \figref{} \tabref{} \eqnref{} \appref{}
+%
+%  Objetos astronómicos: envolverlos SIEMPRE en \object{}, también dentro de
+%  tablas pequeñas. Genera el archivo .obj que enlaza con SIMBAD/ALADIN.
+%      \object{Sgr A*}   \object{S2}
+%
+%  Abreviaturas: expandir la primera vez que aparecen en el texto principal.
+% ============================================================================
+
+\section{Introduction}
+\label{sec:introduction}
+
+Texto de la introducción \citep{baker66}. Esa cita es un placeholder: un
+\texttt{thebibliography} sin ninguna entrada es un error de LaTeX, así que el
+esqueleto trae una para compilar. Bórrala junto con la entrada de
+\texttt{refs.bib} en cuanto tengas tus propias referencias.
+
+% ----------------------------------------------------------------------------
+%  Ejemplos de uso — descomentar y adaptar
+% ----------------------------------------------------------------------------
+%
+%  Citas (natbib con la puntuación A&A ya configurada en main.tex):
+%      \citet{gillessen17}          -> Gillessen et al. (2017)
+%      \citep{gillessen17}          -> (Gillessen et al. 2017)
+%      \citep[see][chap.~2]{do19}   -> (see Do et al. 2019, chap. 2)
+%      \citep{a18,b19}              -> (A et al. 2018; B et al. 2019)
+%
+%  Referencias cruzadas:
+%      as shown in \secref{sec:methods}
+%      \figref{fig:orbit} displays the projected orbit
+%      \tabref{tab:elements} lists the orbital elements
+%      from \eqnref{eq:geodesic}
+%
+%  Objetos:
+%      The star \object{S2} orbits \object{Sgr A*} with a period of 16 yr.
+%
+%  Tipografía A&A (ver el checklist completo en la skill aa-paper):
+%      20\,000 km              miles con espacio fino
+%      1950--1985              rango con en-dash
+%      $-30$~K                 menos matemático + espacio fijo
+%      $v = 7650$~km~s$^{-1}$  unidad con índice negativo, nunca km/s
+%      $T_\mathrm{eff}$        subíndice-etiqueta en redonda
+%      \ion{H}{ii}             ion, romano en minúsculas
+% ----------------------------------------------------------------------------

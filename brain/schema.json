@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://thesis.luisdiaz.me/schemas/brain-record-v1.json",
+  "title": "Registro verificable de información científica",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "id",
+    "slug",
+    "title",
+    "question",
+    "created_at",
+    "updated_at",
+    "status",
+    "manual_review",
+    "tags",
+    "answer_summary",
+    "claims",
+    "sources",
+    "datasets",
+    "limitations",
+    "open_questions",
+    "related_records"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0" },
+    "id": { "type": "string", "pattern": "^INF-[0-9]{3,}$" },
+    "slug": { "type": "string", "pattern": "^[0-9]{3,}-[a-z0-9-]+$" },
+    "title": { "type": "string", "minLength": 1 },
+    "question": { "type": "string", "minLength": 1 },
+    "created_at": { "type": "string", "format": "date" },
+    "updated_at": { "type": "string", "format": "date" },
+    "status": {
+      "enum": ["in_progress", "answerable", "inconclusive", "not_found", "superseded"]
+    },
+    "manual_review": { "enum": ["pending", "partial", "verified", "rejected"] },
+    "tags": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+    "answer_summary": { "type": "string" },
+    "claims": { "type": "array", "items": { "$ref": "#/$defs/claim" } },
+    "sources": { "type": "array", "items": { "$ref": "#/$defs/source" } },
+    "datasets": { "type": "array", "items": { "$ref": "#/$defs/dataset" } },
+    "limitations": { "type": "array", "items": { "type": "string" } },
+    "open_questions": { "type": "array", "items": { "type": "string" } },
+    "related_records": { "type": "array", "items": { "type": "string" } }
+  },
+  "$defs": {
+    "claim": {
+      "type": "object",
+      "required": [
+        "id", "statement", "kind", "value", "unit", "scope", "status",
+        "confidence", "source_ids", "evidence", "derived_from", "notes"
+      ],
+      "properties": {
+        "id": { "type": "string", "pattern": "^C[0-9]{3,}$" },
+        "statement": { "type": "string", "minLength": 1 },
+        "kind": { "enum": ["reported", "derived", "not_found"] },
+        "value": {},
+        "unit": { "type": ["string", "null"] },
+        "scope": { "type": "string" },
+        "status": { "enum": ["supported", "conflicting", "not_found", "unverified"] },
+        "confidence": { "enum": ["high", "medium", "low"] },
+        "source_ids": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["source_id", "locator", "excerpt_note"],
+            "properties": {
+              "source_id": { "type": "string" },
+              "locator": { "type": "string" },
+              "excerpt_note": { "type": "string" }
+            }
+          }
+        },
+        "derived_from": { "type": "array", "items": { "type": "string" } },
+        "notes": { "type": "string" }
+      }
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "id", "type", "title", "authors", "year", "doi", "arxiv", "url",
+        "publisher", "accessed_at", "verification", "local_copy", "notes"
+      ],
+      "properties": {
+        "id": { "type": "string", "pattern": "^S[0-9]{3,}$" },
+        "type": { "enum": ["paper", "dataset", "catalog", "documentation", "other"] },
+        "title": { "type": "string", "minLength": 1 },
+        "authors": { "type": "array", "items": { "type": "string" } },
+        "year": { "type": ["integer", "null"] },
+        "doi": { "type": ["string", "null"] },
+        "arxiv": { "type": ["string", "null"] },
+        "url": { "type": "string", "format": "uri" },
+        "publisher": { "type": ["string", "null"] },
+        "accessed_at": { "type": "string", "format": "date" },
+        "verification": {
+          "type": "object",
+          "required": ["identity", "content"],
+          "properties": {
+            "identity": { "enum": ["verified", "unverified"] },
+            "content": { "enum": ["primary_source_checked", "metadata_only", "unavailable"] }
+          }
+        },
+        "local_copy": { "type": ["string", "null"] },
+        "notes": { "type": "string" }
+      }
+    },
+    "dataset": {
+      "type": "object",
+      "required": [
+        "id", "path", "format", "provenance", "source_ids", "source_url",
+        "downloaded_at", "sha256", "columns", "transformations", "license", "limitations"
+      ],
+      "properties": {
+        "id": { "type": "string", "pattern": "^D[0-9]{3,}$" },
+        "path": { "type": "string", "pattern": "^data/(raw|derived)/.+\\.csv$" },
+        "format": { "const": "csv" },
+        "provenance": { "enum": ["downloaded", "transcribed", "derived"] },
+        "source_ids": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "source_url": { "type": ["string", "null"] },
+        "downloaded_at": { "type": ["string", "null"] },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "columns": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "unit", "description"],
+            "properties": {
+              "name": { "type": "string" },
+              "unit": { "type": ["string", "null"] },
+              "description": { "type": "string" }
+            }
+          }
+        },
+        "transformations": { "type": "array", "items": { "type": "string" } },
+        "license": { "type": ["string", "null"] },
+        "limitations": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}
